@@ -3,12 +3,18 @@ import { useEffect, useState, useCallback } from 'react'
 export const ROUTES = [
   'home',
   'fleet',
+  'robotics-edge',
   'projects',
   'media',
   'language',
   'brand',
+  'streaming',
+  'engineering',
+  'twin',
+  'security',
   'learning',
   'reports',
+  'team',
   'settings',
 ] as const
 

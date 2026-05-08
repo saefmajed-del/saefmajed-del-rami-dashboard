@@ -11,6 +11,12 @@ import {
   GraduationCap,
   FileBarChart2,
   Settings,
+  CircuitBoard,
+  ServerCog,
+  Boxes,
+  Video,
+  ShieldAlert,
+  UsersRound,
 } from 'lucide-react'
 
 export interface NavItem {
@@ -24,12 +30,18 @@ export interface NavItem {
 export const NAV: NavItem[] = [
   { id: 'home', ar: 'الرئيسية', en: 'Home', icon: Home },
   { id: 'fleet', ar: 'إدارة الأسطول', en: 'Fleet', icon: Cpu, badge: 3 },
+  { id: 'robotics-edge', ar: 'الوسيط والحافة', en: 'Robotics Middleware', icon: CircuitBoard },
   { id: 'projects', ar: 'المشاريع والشركاء', en: 'Projects', icon: Building2 },
   { id: 'media', ar: 'المحتوى والإعلام', en: 'Media', icon: Film },
   { id: 'language', ar: 'الذكاء اللغوي', en: 'AI Language', icon: Languages },
   { id: 'brand', ar: 'بناء هوية العلامة', en: 'Brand Studio', icon: Shirt },
+  { id: 'streaming', ar: 'البث المباشر والحضور', en: 'Telepresence', icon: Video, badge: 'LIVE' },
+  { id: 'engineering', ar: 'الهندسة والبنية', en: 'Engineering Ops', icon: ServerCog },
+  { id: 'twin', ar: 'التوأم الرقمي', en: 'Digital Twin', icon: Boxes },
+  { id: 'security', ar: 'الأمن السيبراني', en: 'Security Ops', icon: ShieldAlert },
   { id: 'learning', ar: 'التعلم والمشاهدة', en: 'Learning', icon: GraduationCap },
   { id: 'reports', ar: 'التقارير', en: 'Reports', icon: FileBarChart2 },
+  { id: 'team', ar: 'فريق المنصة', en: 'Platform Team', icon: UsersRound },
   { id: 'settings', ar: 'الإعدادات', en: 'Settings', icon: Settings },
 ]
 

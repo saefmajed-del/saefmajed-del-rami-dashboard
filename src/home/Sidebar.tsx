@@ -10,11 +10,12 @@ interface SidebarProps {
   onCloseDrawer?: () => void
 }
 
-// Group nav into 3 enterprise sections so the menu reads like an OS, not a list.
+// 4 enterprise sections — reads like an industrial OS, not a list.
 const GROUPS: { ar: string; en: string; ids: RouteId[] }[] = [
-  { ar: 'العمليات', en: 'Operations', ids: ['home', 'fleet', 'projects'] },
-  { ar: 'الذكاء والمحتوى', en: 'Intelligence & Content', ids: ['media', 'language', 'brand'] },
-  { ar: 'الأكاديمية والإدارة', en: 'Academy & Admin', ids: ['learning', 'reports', 'settings'] },
+  { ar: 'العمليات', en: 'Operations', ids: ['home', 'fleet', 'robotics-edge', 'projects'] },
+  { ar: 'الذكاء والمحتوى', en: 'Intelligence & Content', ids: ['media', 'language', 'brand', 'streaming'] },
+  { ar: 'الهندسة والبنية', en: 'Engineering & Infrastructure', ids: ['engineering', 'twin', 'security'] },
+  { ar: 'الأكاديمية والإدارة', en: 'Academy & Admin', ids: ['learning', 'reports', 'team', 'settings'] },
 ]
 
 export function Sidebar({ active, drawerOpen = false, onCloseDrawer }: SidebarProps) {
