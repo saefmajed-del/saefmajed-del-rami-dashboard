@@ -1,5 +1,5 @@
-import { HomeCommandCenter } from '@/home/HomeCommandCenter'
+import { AppRouter } from '@/AppRouter'
 
 export default function App() {
-  return <HomeCommandCenter />
+  return <AppRouter />
 }

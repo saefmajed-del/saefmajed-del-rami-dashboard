@@ -13,7 +13,7 @@ const KIND_ICON = { pdf: FileText, pptx: Presentation, xlsx: Sheet } as const
 export function ReportsSnapshot() {
   return (
     <div className="glass-card glass-card-hover col-span-12 overflow-hidden p-5 lg:col-span-6">
-      <PanelHeader ar="مركز التقارير" en="Reports Center" icon={FileBarChart2} cta="إنشاء تقرير" />
+      <PanelHeader ar="مركز التقارير" en="Reports Center" icon={FileBarChart2} cta="إنشاء تقرير" route="reports" />
 
       <div className="grid grid-cols-12 gap-3">
         {/* counters */}

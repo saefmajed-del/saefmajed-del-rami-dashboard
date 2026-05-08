@@ -16,6 +16,7 @@ export function AILanguageSnapshot() {
         en="AI Language Intelligence"
         icon={Languages}
         cta="ساحة الاختبار"
+        route="language"
         badge={
           <span className="rounded-md border border-[rgba(78,163,255,0.25)] bg-[--color-admiral]/10 px-1.5 py-0.5 font-en text-[9px] font-bold uppercase tracking-[0.18em] text-[--color-admiral-glow]">
             v3 · Najdi-tuned

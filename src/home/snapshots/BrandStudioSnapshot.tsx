@@ -31,6 +31,7 @@ export function BrandStudioSnapshot() {
         en="Brand & Identity Studio"
         icon={Shirt}
         cta="افتح الستوديو"
+        route="brand"
       />
 
       <div className="grid grid-cols-12 gap-3">

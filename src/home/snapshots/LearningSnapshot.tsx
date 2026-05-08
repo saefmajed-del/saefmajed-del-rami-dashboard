@@ -10,7 +10,7 @@ const COURSES = [
 export function LearningSnapshot() {
   return (
     <div className="glass-card glass-card-hover col-span-12 overflow-hidden p-5 lg:col-span-6">
-      <PanelHeader ar="التعلم والمشاهدة" en="Learning & Education" icon={GraduationCap} cta="افتح الأكاديمية" />
+      <PanelHeader ar="التعلم والمشاهدة" en="Learning & Education" icon={GraduationCap} cta="افتح الأكاديمية" route="learning" />
 
       <div className="grid grid-cols-12 gap-3">
         {/* simulator viewport */}

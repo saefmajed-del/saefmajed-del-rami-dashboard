@@ -1,11 +1,15 @@
 import { ArrowDownRight, ArrowUpRight, Minus } from 'lucide-react'
 import { KPIS } from './data'
 import { Sparkline } from './parts/Sparkline'
+import { useNavigate, type RouteId } from '@/lib/router'
+
+const KPI_ROUTE: RouteId[] = ['fleet', 'fleet', 'media', 'projects', 'brand', 'media']
 
 export function KpiStrip() {
+  const navigate = useNavigate()
   return (
     <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
-      {KPIS.map((k) => {
+      {KPIS.map((k, i) => {
         const TrendIcon = k.trend === 'up' ? ArrowUpRight : k.trend === 'down' ? ArrowDownRight : Minus
         const trendColor =
           k.trend === 'up'
@@ -15,11 +19,11 @@ export function KpiStrip() {
               : 'text-[--color-muted] bg-white/[0.04] border-[--color-line]'
 
         return (
-          <div
+          <button
             key={k.en}
-            className="glass-card glass-card-hover relative overflow-hidden p-4 transition-all"
+            onClick={() => navigate(KPI_ROUTE[i])}
+            className="glass-card glass-card-hover relative overflow-hidden p-4 text-start transition-all hover:-translate-y-0.5"
           >
-            {/* corner glow */}
             <div className="pointer-events-none absolute -end-12 -top-12 h-32 w-32 rounded-full bg-[--color-admiral-glow]/8 blur-2xl" />
 
             <div className="flex items-baseline justify-between gap-2">
@@ -50,7 +54,7 @@ export function KpiStrip() {
             {k.hint && (
               <div className="mt-1 truncate font-en text-[10px] font-medium text-[--color-faint]">{k.hint}</div>
             )}
-          </div>
+          </button>
         )
       })}
     </div>

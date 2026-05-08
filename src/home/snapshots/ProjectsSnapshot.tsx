@@ -1,21 +1,24 @@
 import { Building2, Bot, AlertCircle } from 'lucide-react'
 import { PROJECTS } from '../data'
 import { PanelHeader } from '../parts/PanelHeader'
+import { useNavigate } from '@/lib/router'
 
 const BADGE_LABEL = { university: 'جامعة', gov: 'حكومي', accelerator: 'مسرّعة' } as const
 
 export function ProjectsSnapshot() {
+  const navigate = useNavigate()
   return (
     <div className="glass-card glass-card-hover col-span-12 overflow-hidden p-5 lg:col-span-6">
-      <PanelHeader ar="المشاريع والشركاء" en="Projects & Partners" icon={Building2} cta="كل المشاريع" />
+      <PanelHeader ar="المشاريع والشركاء" en="Projects & Partners" icon={Building2} cta="كل المشاريع" route="projects" />
 
       <div className="grid grid-cols-2 gap-2.5 md:grid-cols-3">
         {PROJECTS.map((p) => {
           const onlinePct = (p.online / p.robots) * 100
           return (
-            <article
+            <button
               key={p.en}
-              className="group relative overflow-hidden rounded-2xl border border-[--color-line] bg-black/30 p-3 transition-colors hover:border-[rgba(78,163,255,0.32)]"
+              onClick={() => navigate('projects')}
+              className="group relative overflow-hidden rounded-2xl border border-[--color-line] bg-black/30 p-3 text-start transition-all hover:border-[rgba(78,163,255,0.4)] hover:shadow-[0_0_24px_rgba(78,163,255,0.1)] hover:-translate-y-0.5"
             >
               <div className="mb-2 flex items-start justify-between">
                 <div className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-[#0a3a7e]/40 to-[#003d82]/15 font-en text-[11px] font-extrabold text-[--color-ink]">
@@ -57,7 +60,7 @@ export function ProjectsSnapshot() {
                   style={{ width: `${onlinePct}%`, boxShadow: '0 0 12px rgba(78,163,255,0.35)' }}
                 />
               </div>
-            </article>
+            </button>
           )
         })}
       </div>

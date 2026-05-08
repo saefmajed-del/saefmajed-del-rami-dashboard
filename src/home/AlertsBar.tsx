@@ -1,6 +1,7 @@
 import { AlertTriangle, Info, Wrench, Activity, Cpu } from 'lucide-react'
 import { ALERTS } from './data'
 import { cn } from '@/lib/utils'
+import { useNavigate } from '@/lib/router'
 
 const SYSTEM_ROWS = [
   { ar: 'خدمة الأسطول', en: 'Fleet API', status: 'ok', meta: '99.98%' },
@@ -10,6 +11,7 @@ const SYSTEM_ROWS = [
 ] as const
 
 export function AlertsBar() {
+  const navigate = useNavigate()
   return (
     <div className="grid grid-cols-12 gap-3">
       {/* Smart alerts */}
@@ -26,7 +28,10 @@ export function AlertsBar() {
               </div>
             </div>
           </div>
-          <button className="rounded-md border border-[--color-line] bg-black/30 px-2 py-1 font-en text-[10.5px] font-bold text-[--color-ink-2] hover:border-[rgba(78,163,255,0.32)] hover:text-[--color-ink]">
+          <button
+            onClick={() => navigate('fleet')}
+            className="rounded-md border border-[--color-line] bg-black/30 px-2 py-1 font-en text-[10.5px] font-bold text-[--color-ink-2] hover:border-[rgba(78,163,255,0.32)] hover:text-[--color-ink]"
+          >
             View all
           </button>
         </div>
@@ -40,22 +45,24 @@ export function AlertsBar() {
                   : 'border-[rgba(78,163,255,0.25)] bg-[--color-admiral]/10 text-[--color-admiral-glow]'
             const Icon = a.level === 'info' ? Info : AlertTriangle
             return (
-              <li
-                key={a.id}
-                className={cn(
-                  'flex items-start gap-2.5 rounded-xl border bg-black/30 px-3 py-2 transition-colors',
-                  tone,
-                )}
-              >
-                <div className="grid h-6 w-6 shrink-0 place-items-center rounded-md bg-current/10">
-                  <Icon size={12} />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="truncate text-[12px] font-bold text-[--color-ink]">{a.ar}</div>
-                  <div className="truncate font-en text-[10px] font-semibold tracking-wide text-[--color-ink-2]">
-                    {a.en} · {a.meta}
+              <li key={a.id}>
+                <button
+                  onClick={() => navigate('fleet')}
+                  className={cn(
+                    'flex w-full items-start gap-2.5 rounded-xl border bg-black/30 px-3 py-2 text-start transition-all hover:-translate-y-0.5',
+                    tone,
+                  )}
+                >
+                  <div className="grid h-6 w-6 shrink-0 place-items-center rounded-md bg-current/10">
+                    <Icon size={12} />
                   </div>
-                </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="truncate text-[12px] font-bold text-[--color-ink]">{a.ar}</div>
+                    <div className="truncate font-en text-[10px] font-semibold tracking-wide text-[--color-ink-2]">
+                      {a.en} · {a.meta}
+                    </div>
+                  </div>
+                </button>
               </li>
             )
           })}

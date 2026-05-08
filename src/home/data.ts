@@ -112,16 +112,16 @@ export interface RobotPin {
 }
 
 export const ROBOT_PINS: RobotPin[] = [
-  { id: 'G1-RUH-01', city: 'الرياض', x: 48, y: 50, status: 'online', battery: 88 },
-  { id: 'G1-JED-01', city: 'جدة', x: 23, y: 56, status: 'online', battery: 91 },
-  { id: 'GO2-DMM-01', city: 'الدمام', x: 70, y: 44, status: 'online', battery: 76 },
+  { id: 'G1-RUH-01', city: 'الرياض', x: 56, y: 50, status: 'online', battery: 88 },
+  { id: 'G1-JED-01', city: 'جدة', x: 28, y: 60, status: 'online', battery: 91 },
+  { id: 'GO2-DMM-01', city: 'الدمام', x: 80, y: 40, status: 'online', battery: 76 },
   { id: 'GO2-NEOM-01', city: 'نيوم', x: 14, y: 22, status: 'online', battery: 95 },
-  { id: 'GO2-MED-01', city: 'المدينة', x: 30, y: 42, status: 'online', battery: 81 },
-  { id: 'G1-AHS-01', city: 'الأحساء', x: 68, y: 50, status: 'offline', battery: 0 },
-  { id: 'G1-ABH-01', city: 'أبها', x: 38, y: 78, status: 'online', battery: 58 },
-  { id: 'G1-TBK-01', city: 'تبوك', x: 18, y: 18, status: 'warn', battery: 31 },
-  { id: 'G1-QSM-01', city: 'القصيم', x: 44, y: 38, status: 'online', battery: 73 },
-  { id: 'G1-JIZ-01', city: 'جيزان', x: 32, y: 88, status: 'online', battery: 62 },
+  { id: 'GO2-MED-01', city: 'المدينة', x: 30, y: 48, status: 'online', battery: 81 },
+  { id: 'G1-AHS-01', city: 'الأحساء', x: 78, y: 44, status: 'offline', battery: 0 },
+  { id: 'G1-ABH-01', city: 'أبها', x: 42, y: 82, status: 'online', battery: 58 },
+  { id: 'G1-TBK-01', city: 'تبوك', x: 22, y: 22, status: 'warn', battery: 31 },
+  { id: 'G1-QSM-01', city: 'القصيم', x: 50, y: 38, status: 'online', battery: 73 },
+  { id: 'G1-JIZ-01', city: 'جيزان', x: 34, y: 90, status: 'online', battery: 62 },
 ]
 
 export interface MediaItem {

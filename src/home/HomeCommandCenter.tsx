@@ -11,14 +11,15 @@ import { LearningSnapshot } from './snapshots/LearningSnapshot'
 import { ReportsSnapshot } from './snapshots/ReportsSnapshot'
 import { SettingsSnapshot } from './snapshots/SettingsSnapshot'
 import { AlertsBar } from './AlertsBar'
+import { DemoPill } from '@/pages-detail/_PageShell'
 
 export function HomeCommandCenter() {
-  const [active, setActive] = useState('home')
+  const [drawerOpen, setDrawerOpen] = useState(false)
   return (
     <div className="min-h-screen text-[--color-ink]">
-      <Sidebar active={active} onSelect={setActive} />
+      <Sidebar active="home" drawerOpen={drawerOpen} onCloseDrawer={() => setDrawerOpen(false)} />
       <div className="lg:ps-[260px]">
-        <TopBar />
+        <TopBar onOpenDrawer={() => setDrawerOpen(true)} />
         <main className="px-4 pb-12 pt-4">
           {/* Hero salutation */}
           <section className="mb-5 flex flex-wrap items-end justify-between gap-3">
@@ -39,7 +40,8 @@ export function HomeCommandCenter() {
                 </span>
               </p>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
+              <DemoPill />
               <span className="inline-flex items-center gap-1.5 rounded-xl border border-[rgba(78,163,255,0.25)] bg-[--color-admiral]/10 px-2.5 py-1.5 font-en text-[10.5px] font-bold uppercase tracking-[0.18em] text-[--color-admiral-glow]">
                 <span className="relative flex h-1.5 w-1.5">
                   <span className="absolute inset-0 animate-ping rounded-full bg-[--color-admiral-glow] opacity-70" />
@@ -53,12 +55,10 @@ export function HomeCommandCenter() {
             </div>
           </section>
 
-          {/* KPI strip */}
           <section className="mb-5">
             <KpiStrip />
           </section>
 
-          {/* Snapshots grid */}
           <section className="mb-5 grid grid-cols-12 gap-3">
             <FleetSnapshot />
             <MediaSnapshot />
@@ -70,12 +70,10 @@ export function HomeCommandCenter() {
             <SettingsSnapshot />
           </section>
 
-          {/* Alerts band */}
           <section className="mb-2">
             <AlertsBar />
           </section>
 
-          {/* footer */}
           <footer className="mt-8 flex flex-wrap items-center justify-between gap-2 text-center font-en text-[10px] font-semibold uppercase tracking-[0.22em] text-[--color-faint]">
             <span>© 2026 Savvy World · Riyadh · Internal</span>
             <span>Built for Mission Control · 24/7</span>

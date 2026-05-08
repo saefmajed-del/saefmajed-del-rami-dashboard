@@ -1,17 +1,20 @@
 import { Film, Eye, Heart, Share2, Play } from 'lucide-react'
 import { MEDIA } from '../data'
 import { PanelHeader } from '../parts/PanelHeader'
+import { useNavigate } from '@/lib/router'
 
 export function MediaSnapshot() {
+  const navigate = useNavigate()
   return (
     <div className="glass-card glass-card-hover col-span-12 overflow-hidden p-5 lg:col-span-5">
-      <PanelHeader ar="المحتوى والإعلام" en="Media & Content" icon={Film} cta="الستوديو" />
+      <PanelHeader ar="المحتوى والإعلام" en="Media & Content" icon={Film} cta="الستوديو" route="media" />
 
       <div className="grid grid-cols-2 gap-2.5">
         {MEDIA.map((m, i) => (
-          <article
+          <button
             key={i}
-            className="group relative overflow-hidden rounded-2xl border border-[--color-line] bg-black/30"
+            onClick={() => navigate('media')}
+            className="group relative overflow-hidden rounded-2xl border border-[--color-line] bg-black/30 text-start transition-all hover:border-[rgba(78,163,255,0.4)] hover:-translate-y-0.5"
           >
             {/* Thumbnail surface — generative gradient with Arabic title overlay */}
             <div
@@ -49,12 +52,12 @@ export function MediaSnapshot() {
                 {m.platform}
               </span>
 
-              {/* play button on hover */}
-              <button className="absolute inset-0 grid place-items-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+              {/* play overlay on hover */}
+              <span className="absolute inset-0 grid place-items-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                 <span className="grid h-12 w-12 place-items-center rounded-full border border-white/30 bg-black/40 text-white shadow-[0_0_30px_rgba(78,163,255,0.4)] backdrop-blur-md">
                   <Play size={18} fill="currentColor" />
                 </span>
-              </button>
+              </span>
 
               {/* gradient veil */}
               <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#050813] to-transparent" />
@@ -83,7 +86,7 @@ export function MediaSnapshot() {
                 </span>
               </div>
             </div>
-          </article>
+          </button>
         ))}
       </div>
     </div>

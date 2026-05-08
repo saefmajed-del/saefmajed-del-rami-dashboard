@@ -13,7 +13,7 @@ const TILES = [
 export function SettingsSnapshot() {
   return (
     <div className="glass-card glass-card-hover col-span-12 overflow-hidden p-5 lg:col-span-6">
-      <PanelHeader ar="الإعدادات" en="Settings" icon={Settings} cta="كل الإعدادات" />
+      <PanelHeader ar="الإعدادات" en="Settings" icon={Settings} cta="كل الإعدادات" route="settings" />
 
       <div className="grid grid-cols-2 gap-2.5 md:grid-cols-3">
         {TILES.map((t) => {
