@@ -1,0 +1,105 @@
+import type { FleetUnit, FleetAlert } from '@/types'
+
+export const FLEET_UNITS: FleetUnit[] = [
+  {
+    id: 'savvy-001',
+    location: 'الرياض',
+    user: 'سيف',
+    ip: '10.0.1.21',
+    battery: 88,
+    memory: 42,
+    wifiDbm: -42,
+    lastSeen: 'الآن',
+    status: 'online',
+  },
+  {
+    id: 'savvy-002',
+    location: 'جدة',
+    user: 'علي',
+    ip: '10.0.2.18',
+    battery: 64,
+    memory: 87,
+    wifiDbm: -48,
+    lastSeen: '٤د',
+    status: 'warn',
+  },
+  {
+    id: 'savvy-003',
+    location: 'KAUST',
+    user: 'رنا',
+    ip: '10.0.3.11',
+    battery: 12,
+    memory: 55,
+    wifiDbm: -65,
+    lastSeen: '٢د',
+    status: 'warn',
+  },
+  {
+    id: 'savvy-004',
+    location: 'موسم الرياض',
+    user: 'ياسر',
+    ip: '10.0.4.32',
+    battery: 71,
+    memory: 39,
+    wifiDbm: -58,
+    lastSeen: 'الآن',
+    status: 'online',
+  },
+  {
+    id: 'savvy-005',
+    location: 'دبي',
+    user: 'ماجد',
+    ip: '10.0.5.7',
+    battery: 54,
+    memory: 48,
+    wifiDbm: -78,
+    lastSeen: '٧د',
+    status: 'online',
+  },
+]
+
+export const FLEET_ALERTS: FleetAlert[] = [
+  {
+    id: 'a1',
+    severity: 'urgent',
+    time: '٢د',
+    message: 'savvy-003: بطارية ١٢٪',
+    detail: 'KAUST · يحتاج شحناً',
+  },
+  {
+    id: 'a2',
+    severity: 'warn',
+    time: '٧د',
+    message: 'savvy-002: ذاكرة ٨٧٪',
+    detail: 'جدة · مسح مؤقّت',
+  },
+  {
+    id: 'a3',
+    severity: 'info',
+    time: '١٤د',
+    message: 'savvy-001: دخل geofence',
+    detail: 'الرياض · المنطقة الآمنة',
+  },
+  {
+    id: 'a4',
+    severity: 'info',
+    time: '٢٢د',
+    message: 'firmware v2.3.1 جاهز',
+    detail: 'للأسطول كاملاً',
+  },
+  {
+    id: 'a5',
+    severity: 'warn',
+    time: '٤٥د',
+    message: 'WiFi ضعيف · savvy-005',
+    detail: 'دبي · -78 dBm',
+  },
+]
+
+export const MAP_PINS = [
+  { id: 'savvy-001', top: '55%', left: '55%', status: 'online' as const, label: 'الرياض · سيف' },
+  { id: 'savvy-002', top: '50%', left: '48%', status: 'online' as const, label: 'جدة · علي' },
+  { id: 'savvy-003', top: '45%', left: '60%', status: 'warn' as const, label: 'KAUST · رنا' },
+  { id: 'savvy-004', top: '60%', left: '53%', status: 'online' as const, label: 'موسم · ياسر' },
+  { id: 'savvy-005', top: '42%', left: '72%', status: 'online' as const, label: 'دبي · ماجد' },
+]
