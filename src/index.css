@@ -1,35 +1,50 @@
 @import 'tailwindcss';
 
 @theme {
-  /* Brand */
-  --color-bg: #f5f5f7;
-  --color-card: #ffffff;
-  --color-ink: #1d1d1f;
-  --color-ink-2: #515154;
-  --color-muted: #86868b;
-  --color-line: #d2d2d7;
+  /* === Surfaces — dark futuristic === */
+  --color-bg: #050813;             /* page base */
+  --color-surface: #0b1024;        /* card base */
+  --color-surface-2: #11173a;      /* elevated card */
+  --color-surface-3: #161d4a;      /* highest layer */
+  --color-card: #0b1024;           /* legacy alias */
 
-  --color-admiral: #003d82;
-  --color-admiral-2: #0057b7;
-  --color-admiral-glow: #2d7fd9;
+  --color-line: rgba(255, 255, 255, 0.06);
+  --color-line-2: rgba(255, 255, 255, 0.12);
 
-  --color-good: #1e8e3e;
-  --color-warn: #e8a33d;
-  --color-bad: #d93025;
-  --color-info: #0066cc;
-  --color-gold: #c8a14a;
+  /* === Ink === */
+  --color-ink: #f4f6fb;
+  --color-ink-2: #c2cae0;
+  --color-muted: #7a86a8;
+  --color-faint: #4a5478;
 
-  /* Radii */
-  --radius-card: 28px;
-  --radius-sub: 18px;
+  /* === Admiral Blue === */
+  --color-admiral: #0057b7;
+  --color-admiral-2: #2d7fd9;
+  --color-admiral-glow: #4ea3ff;
+  --color-admiral-deep: #003d82;
 
-  /* Fonts */
-  --font-sans: 'Tajawal', 'Almarai', system-ui, -apple-system, sans-serif;
-  --font-display: 'Tajawal', 'Almarai', system-ui, sans-serif;
+  /* === Status === */
+  --color-good: #22c55e;
+  --color-warn: #f5a524;
+  --color-bad: #f43f5e;
+  --color-info: #38bdf8;
+  --color-gold: #d4af37;
 
-  /* Shadows */
-  --shadow-soft: 0 8px 30px rgba(20, 20, 40, 0.06), 0 2px 8px rgba(20, 20, 40, 0.04);
-  --shadow-hi: 0 24px 60px rgba(0, 61, 130, 0.12), 0 6px 18px rgba(20, 20, 40, 0.05);
+  /* === Radii === */
+  --radius-card: 24px;
+  --radius-sub: 16px;
+  --radius-pill: 999px;
+
+  /* === Fonts === */
+  --font-sans: 'Tajawal', 'IBM Plex Sans Arabic', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Tajawal', 'IBM Plex Sans Arabic', 'Inter', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'JetBrains Mono', ui-monospace, monospace;
+  --font-en: 'Inter', 'SF Pro Display', system-ui, sans-serif;
+
+  /* === Shadows === */
+  --shadow-soft: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 12px 40px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 0 1px rgba(78, 163, 255, 0.18), 0 0 40px rgba(45, 127, 217, 0.18);
+  --shadow-elev: 0 24px 60px rgba(0, 0, 0, 0.55), 0 1px 0 rgba(255, 255, 255, 0.04) inset;
 }
 
 html,
@@ -37,11 +52,20 @@ body {
   height: 100%;
 }
 
+html {
+  background: radial-gradient(ellipse at 75% -10%, rgba(0, 87, 183, 0.18) 0%, transparent 55%),
+    radial-gradient(ellipse at 0% 100%, rgba(45, 127, 217, 0.10) 0%, transparent 55%),
+    var(--color-bg);
+  background-attachment: fixed;
+}
+
 body {
   font-family: var(--font-sans);
-  font-size: 18px;
+  font-size: 14px;
+  color: var(--color-ink);
+  background: transparent;
   -webkit-font-smoothing: antialiased;
-  overflow: hidden;
+  text-rendering: optimizeLegibility;
 }
 
 ::selection {
@@ -49,59 +73,151 @@ body {
   color: white;
 }
 
+/* numerals */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
+
+/* English meta — slimmer face for the secondary line */
+.font-en {
+  font-family: var(--font-en);
+  letter-spacing: 0.01em;
+}
+
+/* === Scrollbars === */
 *::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 *::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 999px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(78, 163, 255, 0.32);
 }
 *::-webkit-scrollbar-track {
   background: transparent;
 }
 
-@keyframes radar {
+/* === Reusable surface utilities === */
+.glass-card {
+  background: linear-gradient(180deg, rgba(22, 29, 74, 0.6) 0%, rgba(11, 16, 36, 0.85) 100%);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+.glass-card-hover:hover {
+  border-color: rgba(78, 163, 255, 0.22);
+  box-shadow: var(--shadow-glow);
+}
+
+.hairline {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(78, 163, 255, 0.0) 0%,
+    rgba(78, 163, 255, 0.35) 50%,
+    transparent 100%
+  );
+  height: 1px;
+}
+
+/* admiral micro-glow chip */
+.glow-pill {
+  background: linear-gradient(180deg, rgba(45, 127, 217, 0.22), rgba(0, 87, 183, 0.18));
+  border: 1px solid rgba(78, 163, 255, 0.22);
+  box-shadow: 0 0 18px rgba(45, 127, 217, 0.18);
+}
+
+/* === Motion === */
+@keyframes pulse-ring {
   0% {
-    width: 60px;
-    height: 60px;
-    opacity: 0.9;
+    box-shadow: 0 0 0 0 rgba(78, 163, 255, 0.55);
   }
   100% {
-    width: 600px;
-    height: 600px;
+    box-shadow: 0 0 0 14px rgba(78, 163, 255, 0);
+  }
+}
+
+@keyframes radar-sweep {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes scan-line {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  10%,
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(100%);
     opacity: 0;
   }
 }
 
 @keyframes blink {
   50% {
-    opacity: 0.3;
+    opacity: 0.35;
   }
 }
 
-@keyframes pulse-ring {
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -3px, 0);
+  }
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    transform: scaleY(0.4);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes shimmer {
   0% {
-    box-shadow: 0 0 0 0 rgba(0, 87, 183, 0.5);
+    transform: translateX(-100%);
   }
   100% {
-    box-shadow: 0 0 0 14px rgba(0, 87, 183, 0);
+    transform: translateX(100%);
   }
 }
 
-@keyframes spin-slow {
-  to {
-    transform: rotate(360deg);
-  }
+.animate-pulse-ring {
+  animation: pulse-ring 2.2s ease-out infinite;
+}
+.animate-radar {
+  animation: radar-sweep 6s linear infinite;
+  transform-origin: center;
+}
+.animate-blink {
+  animation: blink 1.6s ease-in-out infinite;
+}
+.animate-drift {
+  animation: drift 4s ease-in-out infinite;
 }
 
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* light dotted grid for backgrounds */
+.bg-grid {
+  background-image: radial-gradient(rgba(78, 163, 255, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
