@@ -2,16 +2,20 @@ import { useCallback, useEffect, useState } from 'react'
 import { Topbar } from '@/components/Topbar'
 import { BottomNav } from '@/components/BottomNav'
 import { InfoPopover } from '@/components/InfoPopover'
+import { VideoModal } from '@/components/VideoModal'
 import { Page1Scene } from '@/pages/Page1Scene'
 import { Page2Brand } from '@/pages/Page2Brand'
 import { Page3Fleet } from '@/pages/Page3Fleet'
 import { PageCatalog } from '@/pages/PageCatalog'
 import { SAVVY_EVENTS, HOKSHA_CLIPS } from '@/data/catalogues'
 import { TOTAL_PAGES, PAGE_TITLES } from '@/data/pages'
+import type { CatalogEntry } from '@/types'
 
 export default function App() {
   const [pageIndex, setPageIndex] = useState(0)
   const [info, setInfo] = useState<string | null>(null)
+  const [video, setVideo] = useState<CatalogEntry | null>(null)
+  const onPlay = useCallback((entry: CatalogEntry) => setVideo(entry), [])
 
   const goTo = useCallback((i: number) => {
     setPageIndex(Math.max(0, Math.min(TOTAL_PAGES - 1, i)))
@@ -60,8 +64,8 @@ export default function App() {
             <Page1Scene onInfo={setInfo} />,
             <Page2Brand onInfo={setInfo} />,
             <Page3Fleet onInfo={setInfo} />,
-            <PageCatalog entries={SAVVY_EVENTS} />,
-            <PageCatalog entries={HOKSHA_CLIPS} />,
+            <PageCatalog entries={SAVVY_EVENTS} onPlay={onPlay} />,
+            <PageCatalog entries={HOKSHA_CLIPS} onPlay={onPlay} />,
           ].map((node, i) => (
             <section
               key={i}
@@ -83,6 +87,12 @@ export default function App() {
       <BottomNav pageIndex={pageIndex} onPrev={() => goTo(pageIndex - 1)} onNext={() => goTo(pageIndex + 1)} />
 
       <InfoPopover infoKey={info} onClose={() => setInfo(null)} />
+
+      <VideoModal
+        url={video ? (video.videoUrl ?? video.externalUrl ?? null) : null}
+        title={video?.title}
+        onClose={() => setVideo(null)}
+      />
     </>
   )
 }

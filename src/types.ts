@@ -57,6 +57,10 @@ export interface CatalogEntry {
   shares: string
   gradient: [string, string]
   best?: boolean
+  /** Direct video URL (mp4) or platform URL (TikTok/IG/YouTube/Vimeo/X). Modal auto-detects. */
+  videoUrl?: string
+  /** Optional override URL to open in new tab when modal embedding isn't possible */
+  externalUrl?: string
 }
 
 export interface InfoSpec {
