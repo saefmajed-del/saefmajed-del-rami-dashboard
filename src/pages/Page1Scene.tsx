@@ -18,7 +18,7 @@ const HERO_STATS = [
 
 export function Page1Scene({ onInfo }: PageProps) {
   return (
-    <div className="grid h-full grid-cols-12 grid-rows-[minmax(180px,auto)_minmax(180px,auto)] gap-4">
+    <div className="grid grid-cols-12 auto-rows-auto gap-3 lg:h-full lg:grid-rows-[minmax(180px,auto)_minmax(180px,auto)] lg:gap-4">
       {/* Hero LiDAR */}
       <Card
         hero
@@ -26,7 +26,7 @@ export function Page1Scene({ onInfo }: PageProps) {
         subtitle="الروبوت يرى ٥ أشخاص ويصنّف انطباعاتهم لحظياً"
         infoKey="lidar"
         onInfo={onInfo}
-        className="col-span-8 row-span-2"
+        className="col-span-12 lg:col-span-8 lg:row-span-2"
       >
         <div className="relative flex-1 overflow-hidden rounded-2xl bg-[radial-gradient(ellipse_at_center,rgba(0,87,183,0.18)_0%,transparent_70%)]">
           <div
@@ -70,7 +70,7 @@ export function Page1Scene({ onInfo }: PageProps) {
         }
         infoKey="transcript"
         onInfo={onInfo}
-        className="col-span-4"
+        className="col-span-12 md:col-span-6 lg:col-span-4"
       >
         <div className="mt-1.5 flex flex-1 flex-col gap-2.5 overflow-hidden">
           {[
@@ -103,7 +103,7 @@ export function Page1Scene({ onInfo }: PageProps) {
         subtitle="٥ جامعات نشطة في pipeline سافي"
         infoKey="rd"
         onInfo={onInfo}
-        className="col-span-4"
+        className="col-span-12 md:col-span-6 lg:col-span-4"
       >
         <div className="mt-1.5 flex flex-1 flex-col gap-2">
           {RESEARCH_PARTNERS.map((p) => (
@@ -134,7 +134,7 @@ export function Page1Scene({ onInfo }: PageProps) {
         subtitle="٤٠ لهجة مرصودة · ٧ بمستوى إنتاجي"
         infoKey="dialects"
         onInfo={onInfo}
-        className="col-span-6"
+        className="col-span-12 md:col-span-6"
       >
         <div className="mt-2 grid grid-cols-8 content-start gap-1.5">
           {DIALECTS.map((d) => (
@@ -166,7 +166,7 @@ export function Page1Scene({ onInfo }: PageProps) {
         subtitle="📍 = الهدف السنوي"
         infoKey="langs"
         onInfo={onInfo}
-        className="col-span-3"
+        className="col-span-6 lg:col-span-3"
       >
         <div className="flex flex-1 flex-col justify-center gap-3.5 mt-2">
           {LANGUAGES.map((lang) => (
@@ -198,7 +198,7 @@ export function Page1Scene({ onInfo }: PageProps) {
         subtitle="١٢٤ تسجيلاً مرجعياً"
         infoKey="voice"
         onInfo={onInfo}
-        className="col-span-3"
+        className="col-span-6 lg:col-span-3"
       >
         <div className="flex flex-1 flex-col items-center justify-center gap-3.5">
           <div

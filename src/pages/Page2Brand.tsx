@@ -7,14 +7,14 @@ interface PageProps {
 
 export function Page2Brand({ onInfo }: PageProps) {
   return (
-    <div className="grid h-full grid-cols-12 grid-rows-[minmax(180px,auto)_minmax(180px,auto)] gap-4">
+    <div className="grid grid-cols-12 auto-rows-auto gap-3 lg:h-full lg:grid-rows-[minmax(180px,auto)_minmax(180px,auto)] lg:gap-4">
       {/* Mr. Savvy Social */}
       <Card
         title="سوشيال Mr. Savvy"
         subtitle="إجمالي المتابعين والمشاهدات"
         infoKey="social"
         onInfo={onInfo}
-        className="col-span-4 row-span-2"
+        className="col-span-12 md:col-span-6 lg:col-span-4 lg:row-span-2"
       >
         <div className="mt-2 grid flex-1 grid-cols-2 gap-2">
           {SAVVY_SOCIAL.map((s) => (
@@ -38,7 +38,7 @@ export function Page2Brand({ onInfo }: PageProps) {
         subtitle="8.4k mentions أسبوعي · MENA"
         infoKey="hoksha"
         onInfo={onInfo}
-        className="col-span-4"
+        className="col-span-12 md:col-span-6 lg:col-span-4"
       >
         <div className="mt-2 grid flex-1 grid-cols-2 gap-2.5">
           {HOKSHA_STATS.map((s) => (
@@ -56,7 +56,7 @@ export function Page2Brand({ onInfo }: PageProps) {
         subtitle="معيار Apple-grade"
         infoKey="brand"
         onInfo={onInfo}
-        className="col-span-4"
+        className="col-span-12 md:col-span-6 lg:col-span-4"
       >
         <div className="my-2.5 flex flex-1 items-center gap-4">
           <div
@@ -86,7 +86,7 @@ export function Page2Brand({ onInfo }: PageProps) {
         subtitle="٦ أشخاص · فلسطين + أوكرانيا + السويد"
         infoKey="team"
         onInfo={onInfo}
-        className="col-span-6"
+        className="col-span-12 md:col-span-6"
       >
         <div className="mt-1.5 grid flex-1 grid-cols-2 gap-2">
           {INTEGRATION_TEAM.map((m) => (
@@ -107,7 +107,7 @@ export function Page2Brand({ onInfo }: PageProps) {
         subtitle="240M مشاهدة · MENA"
         infoKey="reach"
         onInfo={onInfo}
-        className="col-span-3"
+        className="col-span-6 lg:col-span-3"
       >
         <div className="mt-1.5 flex flex-1 flex-col justify-center gap-2">
           {AUDIENCE_REACH.map((c) => (
@@ -129,7 +129,7 @@ export function Page2Brand({ onInfo }: PageProps) {
         subtitle="معدّل آخر ٣٠ يوماً"
         infoKey="production"
         onInfo={onInfo}
-        className="col-span-3"
+        className="col-span-6 lg:col-span-3"
       >
         <div className="mt-1.5 grid flex-1 grid-cols-3 gap-2">
           {PRODUCTION_STATS.map((p) => (

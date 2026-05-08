@@ -47,7 +47,7 @@ export default function App() {
     <>
       <Topbar pageIndex={pageIndex} onGoTo={goTo} />
 
-      <main className="fixed inset-x-0 top-[78px] bottom-[70px] overflow-hidden">
+      <main className="fixed inset-x-0 top-[64px] bottom-[60px] overflow-hidden lg:top-[78px] lg:bottom-[70px]">
         <div
           className="flex h-full transition-transform duration-[550ms] ease-[cubic-bezier(.2,.7,.2,1)]"
           style={{
@@ -65,12 +65,12 @@ export default function App() {
           ].map((node, i) => (
             <section
               key={i}
-              className="h-full overflow-auto px-9 py-6"
+              className="h-full overflow-auto px-4 py-3 lg:px-9 lg:py-6"
               style={{ width: `${100 / TOTAL_PAGES}%` }}
             >
-              <div className="mb-4 flex items-baseline justify-between">
-                <h1 className="text-[30px] font-black -tracking-[0.5px]">{PAGE_TITLES[i]}</h1>
-                <span className="text-[14px] font-semibold text-muted">
+              <div className="mb-3 flex items-baseline justify-between lg:mb-4">
+                <h1 className="text-[20px] font-black -tracking-[0.5px] lg:text-[30px]">{PAGE_TITLES[i]}</h1>
+                <span className="text-[11px] font-semibold text-muted lg:text-[14px]">
                   الصفحة {i + 1} من {TOTAL_PAGES}
                 </span>
               </div>

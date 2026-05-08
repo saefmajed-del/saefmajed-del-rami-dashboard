@@ -28,14 +28,14 @@ const dbmBars = (dbm: number) => {
 
 export function Page3Fleet({ onInfo }: PageProps) {
   return (
-    <div className="grid h-full grid-cols-12 grid-rows-[minmax(180px,auto)_minmax(180px,auto)] gap-4">
+    <div className="grid grid-cols-12 auto-rows-auto gap-3 lg:h-full lg:grid-rows-[minmax(180px,auto)_minmax(180px,auto)] lg:gap-4">
       {/* Units list */}
       <Card
         title="وحدات الأسطول · KYC"
         subtitle="٥ روبوتات · 4 ONLINE · 1 WARN"
         infoKey="units"
         onInfo={onInfo}
-        className="col-span-6 row-span-2"
+        className="col-span-12 md:col-span-6 lg:row-span-2"
       >
         <div className="mt-1.5 flex flex-1 flex-col gap-1.5 overflow-auto">
           {FLEET_UNITS.map((u) => {
@@ -81,13 +81,13 @@ export function Page3Fleet({ onInfo }: PageProps) {
         subtitle="تتبّع لحظي · geofence نشط"
         infoKey="map"
         onInfo={onInfo}
-        className="col-span-6 row-span-2"
+        className="col-span-12 md:col-span-6 lg:row-span-2"
       >
         <MenaMap />
       </Card>
 
       {/* Remote Console */}
-      <Card title="وحدة التحكّم" subtitle="صلاحية سيف فقط" infoKey="console" onInfo={onInfo} className="col-span-3">
+      <Card title="وحدة التحكّم" subtitle="صلاحية سيف فقط" infoKey="console" onInfo={onInfo} className="col-span-6 lg:col-span-3">
         <div className="mt-2 grid flex-1 grid-cols-2 gap-2.5">
           <button className="flex cursor-pointer flex-col items-center gap-1 rounded-2xl border-2 border-bad/25 bg-white px-2.5 py-3.5 font-extrabold text-bad transition hover:bg-bad/8">
             <span className="text-[22px]">🛑</span>
@@ -109,7 +109,7 @@ export function Page3Fleet({ onInfo }: PageProps) {
       </Card>
 
       {/* Health */}
-      <Card title="صحّة الأسطول" subtitle="آخر تحديث: الآن" infoKey="health" onInfo={onInfo} className="col-span-3">
+      <Card title="صحّة الأسطول" subtitle="آخر تحديث: الآن" infoKey="health" onInfo={onInfo} className="col-span-6 lg:col-span-3">
         <div className="mt-1.5 grid flex-1 grid-cols-2 gap-2.5">
           <div className="flex flex-col gap-0.5 rounded-2xl bg-black/[0.025] p-2.5">
             <div className="text-[24px] font-black text-good">4/5</div>
@@ -131,7 +131,7 @@ export function Page3Fleet({ onInfo }: PageProps) {
       </Card>
 
       {/* Alerts */}
-      <Card title="تنبيهات حيّة" subtitle="٥ تنبيهات نشطة" infoKey="alerts" onInfo={onInfo} className="col-span-3">
+      <Card title="تنبيهات حيّة" subtitle="٥ تنبيهات نشطة" infoKey="alerts" onInfo={onInfo} className="col-span-6 lg:col-span-3">
         <div className="mt-1.5 flex flex-1 flex-col gap-1.5 overflow-auto">
           {FLEET_ALERTS.map((a) => (
             <div
@@ -149,7 +149,7 @@ export function Page3Fleet({ onInfo }: PageProps) {
       </Card>
 
       {/* WiFi */}
-      <Card title="اتصال WiFi" subtitle="قوة الإشارة لكل وحدة" infoKey="wifi" onInfo={onInfo} className="col-span-3">
+      <Card title="اتصال WiFi" subtitle="قوة الإشارة لكل وحدة" infoKey="wifi" onInfo={onInfo} className="col-span-6 lg:col-span-3">
         <div className="mt-1.5 flex flex-1 flex-col justify-center gap-2">
           {FLEET_UNITS.map((u) => {
             const bars = dbmBars(u.wifiDbm)
