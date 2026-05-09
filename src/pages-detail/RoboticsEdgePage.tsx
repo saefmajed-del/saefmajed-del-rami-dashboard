@@ -460,12 +460,6 @@ export function RoboticsEdgePage() {
               })}
             </div>
           </div>
-          <style>{`
-            .ros-node:hover circle:first-child {
-              stroke: var(--color-admiral-glow);
-              filter: drop-shadow(0 0 6px rgba(78,163,255,0.55));
-            }
-          `}</style>
         </div>
 
         {/* DDS partitions */}

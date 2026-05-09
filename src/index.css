@@ -221,3 +221,8 @@ body {
   background-image: radial-gradient(rgba(78, 163, 255, 0.08) 1px, transparent 1px);
   background-size: 24px 24px;
 }
+
+.ros-node:hover circle:first-child {
+  stroke: var(--color-admiral-glow);
+  filter: drop-shadow(0 0 6px rgba(78, 163, 255, 0.55));
+}
