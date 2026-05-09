@@ -29,9 +29,9 @@ import { Sparkline } from '@/home/parts/Sparkline'
 import { ROBOT_PINS, ALERTS, type RobotPin, type Alert } from '@/home/data'
 import { cn } from '@/lib/utils'
 
-type RobotType = 'G1' | 'Go2'
+type RobotType = 'G1' | 'Go2' | 'Drone'
 type StatusFilter = 'all' | 'online' | 'warn' | 'offline'
-type TypeFilter = 'all' | 'G1' | 'Go2'
+type TypeFilter = 'all' | 'G1' | 'Go2' | 'Drone'
 
 interface RobotDetail {
   type: RobotType
@@ -57,6 +57,9 @@ const ROBOT_DETAIL: Record<string, RobotDetail> = {
   'G1-TBK-01': { type: 'G1', uptime: '02d 09h', uptimePct: 71, memoryPct: 73, wifiDbm: -71, cpuTempC: 58, micActive: true, cameraActive: false, lastSeen: 'قبل 4د' },
   'G1-QSM-01': { type: 'G1', uptime: '07d 12h', uptimePct: 88, memoryPct: 49, wifiDbm: -56, cpuTempC: 48, micActive: true, cameraActive: true, lastSeen: 'الآن' },
   'G1-JIZ-01': { type: 'G1', uptime: '06d 03h', uptimePct: 86, memoryPct: 55, wifiDbm: -68, cpuTempC: 50, micActive: true, cameraActive: true, lastSeen: 'قبل 1د' },
+  'DRN-RUH-01': { type: 'Drone', uptime: '04d 14h', uptimePct: 81, memoryPct: 32, wifiDbm: -42, cpuTempC: 38, micActive: false, cameraActive: true, lastSeen: 'الآن' },
+  'DRN-NEOM-01': { type: 'Drone', uptime: '02d 20h', uptimePct: 74, memoryPct: 28, wifiDbm: -45, cpuTempC: 39, micActive: false, cameraActive: true, lastSeen: 'الآن' },
+  'DRN-DMM-01': { type: 'Drone', uptime: '01d 08h', uptimePct: 62, memoryPct: 41, wifiDbm: -72, cpuTempC: 45, micActive: false, cameraActive: true, lastSeen: 'قبل 5د' },
 }
 
 const HARDWARE_MODULES: Array<{
@@ -82,7 +85,9 @@ const EXTENDED_ALERTS: Alert[] = [
 ]
 
 function getRobotType(id: string): RobotType {
-  return id.startsWith('GO2') ? 'Go2' : 'G1'
+  if (id.startsWith('GO2')) return 'Go2'
+  if (id.startsWith('DRN')) return 'Drone'
+  return 'G1'
 }
 
 function statusColor(status: RobotPin['status']): string {
