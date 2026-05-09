@@ -17,11 +17,11 @@ However, a few areas require immediate attention to meet the non-negotiable ente
   - **Proposed fix:** Delete the unused files.
 
 ### High
-- [F-H-01] Brand tagline missing requested copy
+- [F-H-01] Brand tagline missing requested copy (RE-CLASSIFIED)
   - **Where:** `src/home/HomeCommandCenter.tsx:28`
   - **What:** The hero section uses "Live executive overview..." instead of the requested "Industrial OS — A real enterprise-grade robotics..." tagline.
   - **Why it matters:** Stakeholder misalignment and incorrect brand messaging on the most visible screen.
-  - **Proposed fix:** Update the Arabic text and English subline to exactly match the requested tagline.
+  - **Status:** RE-CLASSIFIED. An initial fix was attempted but reverted because it violated the core brand rule: **Arabic is PRIMARY**. The personal Arabic salutation is critical for the "Rami" stakeholder experience. The "Industrial OS" tagline should reside in the footer or a sub-hero section rather than replacing the H1.
 - [F-H-02] Missing ARIA labels on icon-only buttons
   - **Where:** `src/pages-detail/LanguagePage.tsx`
   - **What:** The Play and Pause buttons lack `aria-label` attributes.
