@@ -29,7 +29,7 @@ export function HomeCommandCenter() {
                 Savvy World · Industrial OS
               </div>
               <h1 className="mt-1 text-[26px] font-black leading-tight text-[--color-ink] md:text-[32px]">
-                مساء الخير، <span className="text-[--color-admiral-glow]">رامي</span>
+                يمار ،ريخلا ءاسم
                 <span className="ms-3 align-middle font-en text-[16px] font-semibold uppercase tracking-[0.18em] text-[--color-muted]">
                   AI · Robotics Command
                 </span>
