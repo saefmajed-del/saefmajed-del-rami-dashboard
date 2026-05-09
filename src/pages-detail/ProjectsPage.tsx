@@ -589,7 +589,7 @@ export function ProjectsPage() {
                   'linear-gradient(180deg, rgba(5,8,19,0.20) 0%, rgba(5,8,19,0.55) 60%, rgba(5,8,19,0.92) 100%)',
               }}
             />
-            <div className="absolute left-0 right-0 top-0 flex items-start justify-between p-4">
+            <div className="absolute inset-inline-0 top-0 flex items-start justify-between p-4">
               <span className="inline-flex items-center gap-1.5 rounded-md border border-[rgba(78,163,255,0.3)] bg-black/40 px-2 py-1 font-en text-[9.5px] font-bold uppercase tracking-[0.18em] text-[--color-admiral-glow] backdrop-blur">
                 <Sparkles size={10} />
                 Featured partner

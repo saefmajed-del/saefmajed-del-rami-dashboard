@@ -566,7 +566,7 @@ function Toggle({ on, label }: { on?: boolean; label: string }) {
         className={`relative h-4 w-7 rounded-full transition-colors ${on ? 'bg-[--color-admiral-glow]/60' : 'bg-white/10'}`}
       >
         <span
-          className={`absolute top-0.5 h-3 w-3 rounded-full bg-white transition-all ${on ? 'left-3.5' : 'left-0.5'}`}
+          className={`absolute top-0.5 h-3 w-3 rounded-full bg-white transition-all ${on ? 'inset-inline-start-3.5' : 'inset-inline-start-0.5'}`}
         />
       </span>
     </button>
@@ -822,7 +822,7 @@ function Templates() {
               {/* thumb */}
               <div className="relative h-20 overflow-hidden rounded-xl border border-[--color-line] bg-gradient-to-br from-[#0a3a7e]/30 via-[#11173a] to-[#050813]">
                 <div className="bg-grid absolute inset-0 opacity-40" />
-                <div className="absolute left-2 top-2 flex items-center gap-1">
+                <div className="absolute inset-inline-start-2 top-2 flex items-center gap-1">
                   <span className="h-1.5 w-1.5 rounded-full bg-[--color-bad]/70" />
                   <span className="h-1.5 w-1.5 rounded-full bg-[--color-warn]/70" />
                   <span className="h-1.5 w-1.5 rounded-full bg-[--color-good]/70" />
@@ -833,7 +833,7 @@ function Templates() {
                   <div className="h-1 w-16 rounded-full bg-white/8" />
                 </div>
                 <div
-                  className={`absolute right-2 top-2 grid h-7 w-7 place-items-center rounded-md border ${kindClasses(t.kind)}`}
+                  className={`absolute inset-inline-end-2 top-2 grid h-7 w-7 place-items-center rounded-md border ${kindClasses(t.kind)}`}
                 >
                   <Icon size={11} />
                 </div>

@@ -12,7 +12,7 @@ export function MenaMap() {
   return (
     <div className="relative flex-1 overflow-hidden rounded-2xl bg-gradient-to-br from-[#f0f4fa] to-[#e6ecf5]">
       {/* Tools */}
-      <div className="absolute left-2.5 top-2.5 z-10 flex flex-col gap-1.5">
+      <div className="absolute inset-inline-start-2.5 top-2.5 z-10 flex flex-col gap-1.5">
         {[Pencil, History, Crosshair, Eraser].map((Icon, i) => (
           <button
             key={i}

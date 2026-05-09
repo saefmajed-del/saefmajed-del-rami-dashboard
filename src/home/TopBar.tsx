@@ -98,11 +98,11 @@ export function TopBar({ onOpenDrawer }: Props) {
         {/* bell */}
         <button
           onClick={() => navigate('fleet')}
-          aria-label="notifications"
+          aria-label="التنبيهات / Notifications"
           className="ms-auto md:ms-0 relative grid h-10 w-10 place-items-center rounded-xl border border-[--color-line] bg-black/30 text-[--color-ink-2] transition-colors hover:text-[--color-ink]"
         >
           <Bell size={16} />
-          <span className="absolute right-2 top-2 grid h-4 min-w-4 place-items-center rounded-full bg-[--color-bad] px-1 font-en text-[9px] font-bold text-white">
+          <span className="absolute inset-inline-end-2 top-2 grid h-4 min-w-4 place-items-center rounded-full bg-[--color-bad] px-1 font-en text-[9px] font-bold text-white">
             3
           </span>
         </button>
