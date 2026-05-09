@@ -135,7 +135,7 @@ export function SettingsPage() {
           return (
             <section
               key={s.en}
-              className={`glass-card p-5 ${wide ? 'col-span-12 lg:col-span-6' : 'col-span-12 md:col-span-6 lg:col-span-4'}`}
+              className={`glass-card p-4 ${wide ? 'col-span-12 lg:col-span-6' : 'col-span-12 md:col-span-6 lg:col-span-4'}`}
             >
               <div className="mb-3 flex items-start gap-3">
                 <div className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-[rgba(78,163,255,0.22)] bg-gradient-to-br from-[#0a3a7e]/40 to-[#003d82]/15 text-[--color-admiral-glow]">
