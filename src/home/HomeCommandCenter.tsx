@@ -28,15 +28,15 @@ export function HomeCommandCenter() {
                 Savvy World · OS
               </div>
               <h1 className="mt-1 text-[26px] font-black leading-tight text-[--color-ink] md:text-[32px]">
-                مساء الخير، <span className="text-[--color-admiral-glow]">رامي</span>
+                SAVVY WORLD <span className="text-[--color-admiral-glow]">Industrial OS</span>
                 <span className="ms-3 align-middle font-en text-[16px] font-semibold uppercase tracking-[0.18em] text-[--color-muted]">
-                  AI · Robotics Command
+                  Mission Control
                 </span>
               </h1>
               <p className="mt-1 max-w-[640px] text-[13px] font-medium leading-relaxed text-[--color-ink-2]">
-                ملخّص تنفيذي مباشر للأسطول، الذكاء اللغوي، المحتوى، والمشاريع — مُحدَّث لحظياً.
+                نظام تشغيل روبوتات وذكاء اصطناعي حقيقي على مستوى المؤسسات، يدعم البنية التحتية الذكية المتصلة عبر البيئات الصناعية، الحكومية، والمدن الذكية.
                 <span className="ms-2 font-en text-[11px] font-semibold uppercase tracking-[0.16em] text-[--color-faint]">
-                  Live executive overview · KSA fleet · MENA reach
+                  Powering intelligent connected infrastructure across industrial, government, and smart city environments.
                 </span>
               </p>
             </div>

@@ -338,7 +338,7 @@ export function LanguagePage() {
                   key={s.name}
                   className="flex items-center justify-between gap-2 rounded-lg border border-[--color-line] bg-black/30 px-2 py-1.5 hover:border-[rgba(78,163,255,0.32)]"
                 >
-                  <button className="grid h-6 w-6 place-items-center rounded-full border border-[rgba(78,163,255,0.3)] bg-[--color-admiral]/10 text-[--color-admiral-glow]">
+                  <button aria-label="تشغيل العينة" className="grid h-6 w-6 place-items-center rounded-full border border-[rgba(78,163,255,0.3)] bg-[--color-admiral]/10 text-[--color-admiral-glow]">
                     <Play size={9} fill="currentColor" />
                   </button>
                   <div className="min-w-0 flex-1">
