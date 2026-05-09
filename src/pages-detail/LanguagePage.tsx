@@ -146,10 +146,22 @@ export function LanguagePage() {
       actions={
         <button className="inline-flex items-center gap-1.5 rounded-xl border border-[rgba(78,163,255,0.32)] bg-[--color-admiral]/12 px-3 py-2 text-[12px] font-bold text-[--color-admiral-glow] transition-shadow hover:shadow-[0_0_22px_rgba(78,163,255,0.3)]">
           <Sparkles size={12} />
-          توليد سكربت AI
+          <div className="flex flex-col items-start leading-tight">
+            <span>توليد سكربت AI</span>
+            <span className="font-en text-[9px] font-semibold uppercase tracking-[0.14em] opacity-70">Generate AI Script</span>
+          </div>
         </button>
       }
     >
+      {/* Sticky navigation for deep page hierarchy */}
+      <div className="sticky top-[80px] z-20 -mx-1 mb-4 flex gap-2 overflow-x-auto px-1 pb-2 backdrop-blur-sm lg:justify-center">
+        <NavButton label="اللهجات" en="Dialects" target="dialects" />
+        <NavButton label="العمليات" en="Voice Ops" target="voice-ops" />
+        <NavButton label="البث الحي" en="Transcripts" target="transcripts" />
+        <NavButton label="البيانات" en="Data Pipeline" target="pipeline" />
+        <NavButton label="التدريب" en="Training" target="training" />
+      </div>
+
       {/* ---- KPI strip ---- */}
       <div className="mb-4 grid grid-cols-2 gap-3 md:grid-cols-4">
         {KPIS.map((k) => {
@@ -302,7 +314,7 @@ export function LanguagePage() {
           </div>
 
           {/* synthesis output */}
-          <div className="mt-2.5 rounded-2xl border border-[--color-line] bg-gradient-to-b from-[#0a1330] to-[#050813] p-3">
+          <div id="pipeline" className="mt-2.5 rounded-2xl border border-[--color-line] bg-gradient-to-b from-[#0a1330] to-[#050813] p-3">
             <div className="mb-2 flex items-center justify-between font-en text-[10px] font-semibold uppercase tracking-[0.16em]">
               <div className="flex items-center gap-1.5 text-[--color-faint]">
                 <Activity size={10} className="text-[--color-admiral-glow]" />
@@ -368,7 +380,7 @@ export function LanguagePage() {
         </section>
 
         {/* ===== KSA dialects table ===== */}
-        <section className="glass-card col-span-12 overflow-hidden p-5">
+        <section id="dialects" className="glass-card col-span-12 overflow-hidden p-5">
           <div className="mb-3 flex items-start justify-between gap-3">
             <div>
               <div className="flex items-center gap-2">
@@ -526,7 +538,7 @@ export function LanguagePage() {
         </section>
 
         {/* ===== Training pipeline ===== */}
-        <section className="glass-card col-span-12 overflow-hidden p-5 lg:col-span-6">
+        <section id="training" className="glass-card col-span-12 overflow-hidden p-5 lg:col-span-6">
           <div className="mb-3 flex items-start justify-between gap-3">
             <div>
               <div className="flex items-center gap-2">
@@ -639,7 +651,7 @@ export function LanguagePage() {
       {/* ====================================================================== */}
       {/* ===== AI VOICE OPERATIONS — extended ops grid (12 new panels) ====== */}
       {/* ====================================================================== */}
-      <section className="mt-8">
+      <section id="voice-ops" className="mt-8">
         <div className="mb-4 flex items-end justify-between gap-3 border-b border-[--color-line] pb-3">
           <div>
             <div className="flex items-center gap-2">
@@ -1445,6 +1457,7 @@ export function LanguagePage() {
 
           {/* 11 — Training & Evaluation Pipelines */}
           <VoicePanel
+            id="training"
             className="col-span-12 lg:col-span-7"
             ar="خطوط التدريب والتقييم"
             en="Training & eval pipelines"
@@ -2654,6 +2667,24 @@ function HealthMetric({
 }
 
 // ---- existing primitives (kept) --------------------------------------
+
+function NavButton({ label, en, target }: { label: string; en: string; target: string }) {
+  return (
+    <button
+      onClick={() => {
+        const el = document.getElementById(target)
+        if (el) {
+          const top = el.getBoundingClientRect().top + window.pageYOffset - 140
+          window.scrollTo({ top, behavior: 'smooth' })
+        }
+      }}
+      className="group flex shrink-0 flex-col items-center rounded-xl border border-[--color-line] bg-black/40 px-4 py-2 transition-all hover:border-[rgba(78,163,255,0.4)] hover:bg-[--color-admiral]/10"
+    >
+      <span className="text-[12px] font-bold text-[--color-ink] group-hover:text-[--color-admiral-glow]">{label}</span>
+      <span className="font-en text-[9px] font-semibold uppercase tracking-[0.12em] text-[--color-faint] group-hover:text-[--color-admiral-glow]/80">{en}</span>
+    </button>
+  )
+}
 
 function DialectGrid({
   title,
