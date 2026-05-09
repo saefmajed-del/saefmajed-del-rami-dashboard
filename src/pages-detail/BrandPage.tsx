@@ -86,17 +86,17 @@ const TEMPLATES = [
 ]
 
 const COMPLIANCE_ROWS = [
-  { time: '٠٩:٤٢', kit: 'Aramco kit', robot: 'G1-014', score: 99, status: 'pass' as const },
-  { time: '٠٩:٢٠', kit: 'Riyadh Season', robot: 'G1-022', score: 97, status: 'pass' as const },
-  { time: '٠٨:٥٨', kit: 'NEOM kit', robot: 'R1-003', score: 94, status: 'pass' as const },
-  { time: '٠٨:٣١', kit: 'KSU labs kit', robot: 'Go2-009', score: 88, status: 'warn' as const },
-  { time: '٠٧:٥٥', kit: 'Diriyah Gate', robot: 'G1-006', score: 76, status: 'fail' as const },
-  { time: '٠٧:٢٠', kit: 'Savvy Hub', robot: 'G1-001', score: 100, status: 'pass' as const },
+  { time: '09:42', kit: 'Aramco kit', robot: 'G1-014', score: 99, status: 'pass' as const },
+  { time: '09:20', kit: 'Riyadh Season', robot: 'G1-022', score: 97, status: 'pass' as const },
+  { time: '08:58', kit: 'NEOM kit', robot: 'R1-003', score: 94, status: 'pass' as const },
+  { time: '08:31', kit: 'KSU labs kit', robot: 'Go2-009', score: 88, status: 'warn' as const },
+  { time: '07:55', kit: 'Diriyah Gate', robot: 'G1-006', score: 76, status: 'fail' as const },
+  { time: '07:20', kit: 'Savvy Hub', robot: 'G1-001', score: 100, status: 'pass' as const },
 ]
 
 const VIEWS = [
   { id: 'front', ar: 'أمامي', en: 'Front' },
-  { id: '3q', ar: '٣/٤', en: '3-Quarter' },
+  { id: '3q', ar: '3/4', en: '3-Quarter' },
   { id: 'side', ar: 'جانبي', en: 'Side' },
 ] as const
 
@@ -112,7 +112,7 @@ const DOS = [
 ]
 const DONTS = [
   'لا تغيّر لون "vv" أبداً — يبقى أزرق Admiral',
-  'لا تطبّق ألوان فاقعة على ٢٥٪ من الجسم',
+  'لا تطبّق ألوان فاقعة على 25% من الجسم',
   'لا تجمع شعارين مع بعض على نفس المنطقة',
 ]
 

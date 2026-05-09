@@ -20,8 +20,8 @@ const SECTIONS = [
     fields: [
       { ar: 'كلمة المرور', en: 'Password', value: '••••••••••', cta: 'تغيير' },
       { ar: 'المصادقة الثنائية', en: '2FA', value: 'مفعّل · تطبيق Authenticator', cta: 'تعديل' },
-      { ar: 'كلمة مرور التطبيق', en: 'App passwords', value: '٢ مفاتيح', cta: 'إدارة' },
-      { ar: 'الجلسات النشطة', en: 'Active sessions', value: '٣ أجهزة', cta: 'عرض' },
+      { ar: 'كلمة مرور التطبيق', en: 'App passwords', value: '2 مفاتيح', cta: 'إدارة' },
+      { ar: 'الجلسات النشطة', en: 'Active sessions', value: '3 أجهزة', cta: 'عرض' },
     ],
   },
   {
@@ -30,9 +30,9 @@ const SECTIONS = [
     icon: ShieldCheck,
     fields: [
       { ar: 'حالة الحساب', en: 'Account status', value: 'مُتحقَّق · Tier 3' },
-      { ar: 'الهوية الوطنية', en: 'National ID', value: '١•••••••••' },
+      { ar: 'الهوية الوطنية', en: 'National ID', value: '1•••••••••' },
       { ar: 'السجل التجاري', en: 'Commercial registry', value: 'CR 4030••••' },
-      { ar: 'KYC للأجهزة', en: 'Robot KYC', value: '١٠ من ١٠ مُفعَّل' },
+      { ar: 'KYC للأجهزة', en: 'Robot KYC', value: '10 من 10 مُفعَّل' },
     ],
   },
   {
@@ -42,8 +42,8 @@ const SECTIONS = [
     fields: [
       { ar: 'الدور', en: 'Role', value: 'Super Admin' },
       { ar: 'فرق الفريق', en: 'Teams', value: 'Integration · Brand · R&D' },
-      { ar: 'مشاركون في الحساب', en: 'Account members', value: '١٨ مستخدم', cta: 'إدارة' },
-      { ar: 'مفاتيح API', en: 'API keys', value: '٤ مفاتيح', cta: 'عرض' },
+      { ar: 'مشاركون في الحساب', en: 'Account members', value: '18 مستخدم', cta: 'إدارة' },
+      { ar: 'مفاتيح API', en: 'API keys', value: '4 مفاتيح', cta: 'عرض' },
     ],
   },
   {
@@ -76,7 +76,7 @@ const SECTIONS = [
       { ar: 'TikTok Business', en: 'TikTok Business', value: 'متّصل · @huksha' },
       { ar: 'Snap Ads', en: 'Snap Ads', value: 'متّصل' },
       { ar: 'Slack', en: 'Slack', value: 'savvyworld.slack.com' },
-      { ar: 'SOTI Mobi', en: 'SOTI Mobi', value: 'متّصل · ١٠ أجهزة' },
+      { ar: 'SOTI Mobi', en: 'SOTI Mobi', value: 'متّصل · 10 أجهزة' },
     ],
   },
   {
@@ -85,7 +85,7 @@ const SECTIONS = [
     icon: Globe,
     fields: [
       { ar: 'تخزين بيانات الأسطول', en: 'Fleet data residency', value: 'KSA · Riyadh' },
-      { ar: 'تسجيل الفيديو', en: 'Video recording', value: 'مفعّل · ٣٠ يوم' },
+      { ar: 'تسجيل الفيديو', en: 'Video recording', value: 'مفعّل · 30 يوم' },
       { ar: 'تسجيل الصوت', en: 'Voice recording', value: 'On-device only' },
       { ar: 'مشاركة المقاييس', en: 'Telemetry', value: 'مجهول الهوية' },
     ],
@@ -95,7 +95,7 @@ const SECTIONS = [
     en: 'Trusted Devices',
     icon: Smartphone,
     fields: [
-      { ar: 'iPhone 16 Pro · رامي', en: 'iPhone 16 Pro · Rami', value: 'الرياض · قبل ٤د' },
+      { ar: 'iPhone 16 Pro · رامي', en: 'iPhone 16 Pro · Rami', value: 'الرياض · قبل 4د' },
       { ar: 'MacBook Pro M4', en: 'MacBook Pro M4', value: 'الرياض · الآن' },
       { ar: 'iPad Pro 13', en: 'iPad Pro 13', value: 'جدة · أمس' },
     ],
@@ -105,8 +105,8 @@ const SECTIONS = [
     en: 'Activity Log',
     icon: History,
     fields: [
-      { ar: 'إنشاء تقرير', en: 'Report generated', value: 'منذ ١٢ دقيقة' },
-      { ar: 'تسجيل دخول', en: 'Sign-in', value: 'الرياض · Chrome · اليوم ٠٩:٠٠' },
+      { ar: 'إنشاء تقرير', en: 'Report generated', value: 'منذ 12 دقيقة' },
+      { ar: 'تسجيل دخول', en: 'Sign-in', value: 'الرياض · Chrome · اليوم 09:00' },
       { ar: 'تحديث صلاحية', en: 'Permission updated', value: 'كريم → API write' },
       { ar: 'تحديث برمجي', en: 'Firmware update', value: 'الأسطول كاملاً · v3.4.2' },
     ],
