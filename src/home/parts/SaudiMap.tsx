@@ -174,14 +174,14 @@ export function SaudiMap({ pins = [], showDialects = false, showCities = false, 
                 </circle>
               )}
               {/* quadcopter top-down: 4 rotor circles + cross */}
-              <g stroke="rgba(255,255,255,0.65)" strokeWidth="0.28" fill={color}>
-                <line x1="-1.8" y1="-1.8" x2="1.8" y2="1.8" stroke={color} strokeWidth="0.4" />
-                <line x1="-1.8" y1="1.8" x2="1.8" y2="-1.8" stroke={color} strokeWidth="0.4" />
-                <circle cx="-1.8" cy="-1.8" r="0.7" />
-                <circle cx="1.8" cy="-1.8" r="0.7" />
-                <circle cx="-1.8" cy="1.8" r="0.7" />
-                <circle cx="1.8" cy="1.8" r="0.7" />
-                <circle r="0.55" fill="#0b1024" stroke={color} strokeWidth="0.35" />
+              <g stroke="rgba(255,255,255,0.75)" strokeWidth="0.4" fill={color}>
+                <line x1="-2.2" y1="-2.2" x2="2.2" y2="2.2" stroke={color} strokeWidth="0.5" />
+                <line x1="-2.2" y1="2.2" x2="2.2" y2="-2.2" stroke={color} strokeWidth="0.5" />
+                <circle cx="-2.2" cy="-2.2" r="1.0" />
+                <circle cx="2.2" cy="-2.2" r="1.0" />
+                <circle cx="-2.2" cy="2.2" r="1.0" />
+                <circle cx="2.2" cy="2.2" r="1.0" />
+                <circle r="0.7" fill="#0b1024" stroke={color} strokeWidth="0.45" />
               </g>
             </g>
           )
