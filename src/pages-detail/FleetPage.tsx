@@ -26,7 +26,6 @@ import {
 import { KpiCard } from '@/components/KpiCard'
 import { PageShell } from '@/pages-detail/_PageShell'
 import { SaudiMap } from '@/home/parts/SaudiMap'
-import { Sparkline } from '@/home/parts/Sparkline'
 import { ROBOT_PINS, ALERTS, type RobotPin, type Alert } from '@/home/data'
 import { cn } from '@/lib/utils'
 

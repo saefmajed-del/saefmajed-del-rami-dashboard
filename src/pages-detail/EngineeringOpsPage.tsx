@@ -16,8 +16,6 @@ import {
   AlertTriangle,
   Clock,
   Boxes,
-  ArrowUpRight,
-  ArrowDownRight,
   CheckCircle2,
   Pause,
   X,
@@ -25,6 +23,8 @@ import {
 } from 'lucide-react'
 import { PageShell } from './_PageShell'
 import { KpiCard } from '@/components/KpiCard'
+import { PanelHeader } from '@/home/parts/PanelHeader'
+import { cn } from '@/lib/utils'
 
 // ---------------- Helpers ----------------
 

@@ -673,17 +673,38 @@ export function DigitalTwinPage() {
       icon={Boxes}
       description="رؤية مكانية ثلاثيّة الأبعاد لجميع المرافق والروبوتات والمسارات — تحكّم زمني، طبقات قابلة للتبديل، وإعادة تشغيل المشاهد."
       actions={
-        <button
-          onClick={() => setFollowSelected(false)}
-          className="inline-flex items-center gap-1.5 rounded-xl border border-[rgba(78,163,255,0.28)] bg-[--color-admiral]/10 px-3 py-2 text-[12px] font-bold text-[--color-ink] transition-shadow hover:shadow-[0_0_18px_rgba(78,163,255,0.22)]"
-          aria-label="إعادة الكاميرا / Reset Camera"
-        >
-          <RotateCcw size={12} />
-          <div className="flex flex-col items-start leading-tight">
-            <span>إعادة الكاميرا</span>
-            <span className="font-en text-[9px] font-semibold uppercase tracking-[0.14em] opacity-70">Reset Camera</span>
-          </div>
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setFollow((v) => !v)}
+            className={cn(
+              "inline-flex items-center gap-1.5 rounded-xl border px-3 py-2 text-[12px] font-bold transition-all",
+              follow
+                ? "border-[--color-admiral-glow] bg-[--color-admiral]/20 text-[--color-admiral-glow] shadow-[0_0_18px_rgba(78,163,255,0.25)]"
+                : "border-[rgba(78,163,255,0.28)] bg-[--color-admiral]/10 text-[--color-ink] hover:shadow-[0_0_18px_rgba(78,163,255,0.22)]"
+            )}
+            aria-label="تتبع المختار / Follow Selected"
+          >
+            <Locate size={12} />
+            <div className="flex flex-col items-start leading-tight">
+              <span>تتبع المختار</span>
+              <span className="font-en text-[9px] font-semibold uppercase tracking-[0.14em] opacity-70">Follow Selected</span>
+            </div>
+          </button>
+          <button
+            onClick={() => {
+              setFollow(false)
+              setResetKey((k) => k + 1)
+            }}
+            className="inline-flex items-center gap-1.5 rounded-xl border border-[rgba(78,163,255,0.28)] bg-[--color-admiral]/10 px-3 py-2 text-[12px] font-bold text-[--color-ink] transition-shadow hover:shadow-[0_0_18px_rgba(78,163,255,0.22)]"
+            aria-label="إعادة الكاميرا / Reset Camera"
+          >
+            <RotateCcw size={12} />
+            <div className="flex flex-col items-start leading-tight">
+              <span>إعادة الكاميرا</span>
+              <span className="font-en text-[9px] font-semibold uppercase tracking-[0.14em] opacity-70">Reset Camera</span>
+            </div>
+          </button>
+        </div>
       }
     >
       {/* Layer toolbar */}

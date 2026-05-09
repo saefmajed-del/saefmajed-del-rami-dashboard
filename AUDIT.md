@@ -1,42 +1,100 @@
 # Savvy World Industrial OS — Design Audit
+
 **Date:** 2026-05-09
 **Auditor:** Gemini CLI
+**Branch:** gemini/polish-pass-2
 
-## Summary
-The Savvy World Industrial OS dashboard is a visually striking, well-architected frontend application. It successfully achieves the "Apple Vision Pro × NVIDIA Omniverse" aesthetic with its dark-futuristic design, glass surfaces, and meticulous use of Arabic typography and RTL layouts. The architecture handles complex routing, lazy loading of heavy 3D assets, and responsive adaptation admirably.
+## Executive Summary
 
-However, a few areas require immediate attention to meet the non-negotiable enterprise quality bar. There is legacy code lingering in the repository, missing accessibility features on interactive elements, and the brand tagline is not perfectly aligned with the latest mandate. This audit details these findings and sets the course for the final polish.
+The Savvy World Industrial OS is an impressive, high-fidelity dashboard that successfully captures a futuristic "Apple Vision Pro × Tesla" aesthetic. The technical foundation is solid, utilizing React 19, Tailwind v4, and R3F for 3D visualization. The bilingual implementation (Arabic primary) is deeply integrated into the layout.
+
+However, this audit has identified several critical violations of brand guardrails and data inconsistencies that threaten the "enterprise-grade" claim. Specifically, the sacred personal greeting on the home page has been normalized, Eastern Arabic numerals have crept into technical settings, and the fleet data is inconsistent across pages (missing drones in detail views). This second pass aims to resolve these issues and elevate the micro-interactions to meet the stakeholder's high bar.
 
 ## Findings
 
-### Critical (must fix before next stakeholder demo)
-- [F-C-01] Legacy dead code polluting the repository
-  - **Where:** `src/pages/`, `src/components/BottomNav.tsx`, `src/components/Topbar.tsx`
-  - **What:** Unused and bypassed legacy files remain in the codebase.
-  - **Why it matters:** Increases maintenance overhead, creates confusion for future developers, and violates the "code cleanliness" mandate.
-  - **Proposed fix:** Delete the unused files.
+### Critical (Brand & Data Integrity)
 
-### High
-- [F-H-01] Brand tagline missing requested copy (RE-CLASSIFIED)
-  - **Where:** `src/home/HomeCommandCenter.tsx:28`
-  - **What:** The hero section uses "Live executive overview..." instead of the requested "Industrial OS — A real enterprise-grade robotics..." tagline.
-  - **Why it matters:** Stakeholder misalignment and incorrect brand messaging on the most visible screen.
-  - **Status:** RE-CLASSIFIED. An initial fix was attempted but reverted because it violated the core brand rule: **Arabic is PRIMARY**. The personal Arabic salutation is critical for the "Rami" stakeholder experience. The "Industrial OS" tagline should reside in the footer or a sub-hero section rather than replacing the H1.
-- [F-H-02] Missing ARIA labels on icon-only buttons
-  - **Where:** `src/pages-detail/LanguagePage.tsx`
-  - **What:** The Play and Pause buttons lack `aria-label` attributes.
-  - **Why it matters:** Fails accessibility (A11y) standards, rendering the interface unusable for screen reader users.
-  - **Proposed fix:** Add dynamic `aria-label="تشغيل"` and `"إيقاف"` to these buttons.
+- [F-C-01] **Brand Violation: Sacred Greeting Normalized**
+    - **Where:** `src/home/HomeCommandCenter.tsx:32`
+    - **What:** The H1 greeting `مساء الخير، رامي` is written in normal Arabic.
+    - **Why it matters:** Guardrail #2 explicitly mandates the greeting `يمار ،ريخلا ءاسم` is SACRED and must stay as the home page H1. A previous "fix" was reverted; the current state is a regression.
+    - **Proposed fix:** Restore the exact sacred string: `يمار ،ريخلا ءاسم`.
 
-### Medium
-- [F-M-01] Main chunk size slightly over 500KB warning limit
-  - **Where:** `dist/assets/index-*.js`
-  - **What:** The main entry chunk is ~692KB (168KB gzip), exceeding the recommended 500KB limit.
-  - **Why it matters:** Slower time-to-interactive on constrained enterprise networks.
-  - **Proposed fix:** Extract `DIALECTS` and other heavy static JSON data arrays into their own async chunks, though acceptable for now given gzip size.
+- [F-C-02] **Guardrail Violation: Eastern Arabic Numerals in Technical Context**
+    - **Where:** `src/pages-detail/SettingsPage.tsx:23,24,45,46,83,95` and `src/pages-detail/BrandPage.tsx:64,65,66,67`
+    - **What:** Use of Eastern numerals (٢, ٣, ١٨, ٤, ١٠, ٠٩:٤٢, ٠٧:٢٠) next to LTR/technical strings.
+    - **Why it matters:** Guardrail #9 mandates Western numerals (0–9) with `.tabular-nums` to prevent BiDi jumping and maintain technical legibility.
+    - **Proposed fix:** Convert all Eastern numerals to 0–9.
+
+- [F-C-03] **Data Inconsistency: Fleet Fleet mismatch**
+    - **Where:** `src/pages-detail/FleetPage.tsx:36`
+    - **What:** `ROBOT_DETAIL` map contains only 10 entries (humanoids/quadrupeds), but the global fleet has 13 assets (including 3 drones).
+    - **Why it matters:** Navigating from the Fleet snapshot (13 assets) to the Fleet page (10 assets) creates a jarring "broken" experience for stakeholders.
+    - **Proposed fix:** Sync `ROBOT_DETAIL` with `ROBOT_PINS` in `src/home/data.ts` and add drone-specific metadata.
+
+- [F-C-04] **Bilingual Incompleteness: Missing English Sub-lines**
+    - **Where:** `src/pages-detail/DigitalTwinPage.tsx:501` and others.
+    - **What:** Buttons like "إعادة الكاميرا" and "دوران تلقائي" lack English sub-lines.
+    - **Why it matters:** Guardrail #11 mandates every Arabic line must have a corresponding English sub-line.
+    - **Proposed fix:** Add English sub-lines (e.g., "Reset Camera", "Auto Rotate") using the established `font-en text-[10px]` pattern.
+
+- [F-C-05] **Accessibility Blocker: Missing ARIA Labels**
+    - **Where:** `src/pages-detail/TelepresencePage.tsx:603,612`, `src/pages-detail/DigitalTwinPage.tsx:497,510`
+    - **What:** Icon-only buttons (Pause, Maximize, Reset) lack `aria-label`.
+    - **Why it matters:** Guardrail #14 and A11y standards.
+    - **Proposed fix:** Add descriptive Arabic `aria-label` to all icon-only buttons.
+
+### High (Visual & UX Coherence)
+
+- [F-H-01] **Mobile Layout: Telepresence Camera Grid Congestion**
+    - **Where:** `src/pages-detail/TelepresencePage.tsx:507`
+    - **What:** Grid uses `grid-cols-3` on small screens and `xl:grid-cols-9`.
+    - **Why it matters:** On 360px devices, 3 columns of video streams are too small to be useful.
+    - **Proposed fix:** Change to `grid-cols-1 sm:grid-cols-2 md:grid-cols-3` for better legibility on mobile.
+
+- [F-H-02] **Component Duplication: KPI Tiles**
+    - **Where:** `FleetPage.tsx`, `TelepresencePage.tsx`, `EngineeringOpsPage.tsx`
+    - **What:** KPI tiles are reimplemented with slightly different padding, font-sizes, and glow effects.
+    - **Why it matters:** Maintenance burden and subtle visual drift.
+    - **Proposed fix:** Extract a unified `KpiCard` component.
+
+- [F-H-03] **Hierarchy: Language Page orientiation**
+    - **Where:** `src/pages-detail/LanguagePage.tsx`
+    - **What:** 2720 lines of code. The 12 AI Voice Ops panels are very similar and lead to "scrolling fatigue."
+    - **Why it matters:** Users lose context of which model/dialect they are looking at.
+    - **Proposed fix:** Add sticky headers or a mini-anchor navigation for the 12 panels.
+
+### Medium (Polish & Cleanliness)
+
+- [F-M-01] **Spacing Inconsistency: Settings Cards**
+    - **Where:** `src/pages-detail/SettingsPage.tsx:131`
+    - **What:** Card padding is `p-5`, while most other page cards use `p-4` or `p-3`.
+    - **Why it matters:** Breaks the 8px grid rhythm.
+    - **Proposed fix:** Unify to `p-4` with consistent gaps.
+
+- [F-M-02] **Code Quality: Inline Styles in JSX**
+    - **Where:** `src/pages-detail/RoboticsEdgePage.tsx:233`
+    - **What:** Use of `<style>` tag inside a component for hover effects.
+    - **Why it matters:** Not idiomatic for this Tailwind-first project.
+    - **Proposed fix:** Move to `src/index.css` as a utility or use Tailwind `group-hover`.
+
+- [F-M-03] **RTL Correctness: Logic Property Slippage**
+    - **Where:** `src/home/TopBar.tsx:84`
+    - **What:** `ms-auto` is used (good), but check `DigitalTwinPage.tsx` HUD overlays for `left/right`.
+    - **Proposed fix:** Ensure `inset-inline-start` is used for all absolute overlays.
 
 ### Low / Polish
-- [F-L-01] Lack of deep model pipeline visualizations
-  - **Where:** `src/pages-detail/LanguagePage.tsx`
-  - **What:** The page focuses on dialect maturity rather than real-time monitoring of Whisper/XTTS logs.
-  - **Why it matters:** Missing an opportunity to showcase deeper technical integrations, though acceptable for a UI prototype.
+
+- [F-L-01] **Animation Taste: Sparkline Entry**
+    - **Where:** `src/home/parts/Sparkline.tsx`
+    - **What:** Sparklines appear instantly.
+    - **Proposed fix:** Add a simple `framer-motion` reveal for the path.
+
+- [F-L-02] **Brand Compliance: Drone Shape on Map**
+    - **Where:** `src/home/parts/SaudiMap.tsx`
+    - **What:** Ensure the drone "quadcopter" shape is distinct enough from the humanoid circle at mobile sizes.
+    - **Proposed fix:** Increase stroke weight or simplify the quad-rotor silhouette.
+
+---
+**Auditor:** Gemini CLI
+**Date:** May 9, 2026

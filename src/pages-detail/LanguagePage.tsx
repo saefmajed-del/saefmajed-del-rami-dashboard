@@ -2047,6 +2047,7 @@ const MODEL_HEALTH: ModelHealth[] = [
 // ----- presentational helpers -----------------------------------------
 
 function VoicePanel({
+  id,
   className,
   ar,
   en,
@@ -2054,6 +2055,7 @@ function VoicePanel({
   badge,
   children,
 }: {
+  id?: string
   className?: string
   ar: string
   en: string
@@ -2062,7 +2064,7 @@ function VoicePanel({
   children: React.ReactNode
 }) {
   return (
-    <section className={cn('glass-card overflow-hidden p-5', className)}>
+    <section id={id} className={cn('glass-card overflow-hidden p-5', className)}>
       <div className="mb-3 flex items-start justify-between gap-3">
         <div className="flex items-start gap-2.5 min-w-0">
           <div className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-[rgba(78,163,255,0.22)] bg-gradient-to-br from-[#0a3a7e]/40 to-[#003d82]/15 text-[--color-admiral-glow]">
