@@ -23,11 +23,25 @@ const DigitalTwinPage = lazy(() =>
 function TwinFallback() {
   return (
     <div className="grid min-h-screen place-items-center bg-[--color-bg]">
-      <div className="text-center">
-        <div className="font-en text-[10.5px] font-semibold uppercase tracking-[0.22em] text-[--color-admiral-glow]">
-          Loading 3D scene
+      <div className="flex flex-col items-center gap-3 px-6 text-center">
+        <div className="relative grid h-14 w-14 place-items-center">
+          <span className="absolute inset-0 rounded-full border border-[rgba(78,163,255,0.18)]" />
+          <span
+            className="absolute inset-0 rounded-full border-t-2 border-[--color-admiral-glow]"
+            style={{ animation: 'radar-sweep 1.6s linear infinite', transformOrigin: 'center' }}
+          />
+          <span className="font-en text-[12px] font-extrabold leading-none tracking-tight">
+            <span className="text-white">S</span>
+            <span className="text-[--color-admiral-glow]">vv</span>
+          </span>
         </div>
-        <div className="mt-2 text-[14px] font-bold text-[--color-ink]">جاري تحميل المحرّك ثلاثي الأبعاد…</div>
+        <div className="font-en text-[10px] font-semibold uppercase tracking-[0.24em] text-[--color-admiral-glow]">
+          Savvy World · Industrial OS
+        </div>
+        <div className="text-[14px] font-bold text-[--color-ink]">جاري تحميل المحرّك ثلاثي الأبعاد…</div>
+        <div className="font-en text-[10.5px] font-medium text-[--color-faint]">
+          Booting Three.js + R3F · Digital Twin scene
+        </div>
       </div>
     </div>
   )
