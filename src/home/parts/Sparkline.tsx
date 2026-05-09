@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion'
+
 interface Props {
   data: number[]
   trend: 'up' | 'down' | 'flat'
@@ -34,9 +36,33 @@ export function Sparkline({ data, trend, height = 36, className }: Props) {
           <stop offset="100%" stopColor="rgba(78,163,255,0)" />
         </linearGradient>
       </defs>
-      <path d={area} fill={`url(#sl-${trend})`} />
-      <path d={path} fill="none" stroke={stroke} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-      <circle cx={width} cy={height - ((data[data.length - 1] - min) / span) * (height - 4) - 2} r="1.6" fill={stroke} />
+      <motion.path
+        initial={{ pathLength: 0, opacity: 0 }}
+        animate={{ pathLength: 1, opacity: 1 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
+        d={area}
+        fill={`url(#sl-${trend})`}
+      />
+      <motion.path
+        initial={{ pathLength: 0, opacity: 0 }}
+        animate={{ pathLength: 1, opacity: 1 }}
+        transition={{ duration: 1.2, ease: 'easeOut' }}
+        d={path}
+        fill="none"
+        stroke={stroke}
+        strokeWidth={1.2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <motion.circle
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ delay: 1, duration: 0.4 }}
+        cx={width}
+        cy={height - ((data[data.length - 1] - min) / span) * (height - 4) - 2}
+        r={1.6}
+        fill={stroke}
+      />
     </svg>
   )
 }
