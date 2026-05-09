@@ -22,7 +22,8 @@ import {
   RefreshCw,
 } from 'lucide-react'
 import { PageShell } from './_PageShell'
-import { KpiCard } from '@/components/KpiCard'
+import { motion } from 'framer-motion'
+import { MagicStatCard } from '@/components/magic/MagicStatCard'
 import { PanelHeader } from '@/home/parts/PanelHeader'
 import { cn } from '@/lib/utils'
 
@@ -384,22 +385,25 @@ export function EngineeringOpsPage() {
     >
       {/* KPI strip */}
       <div className="mb-3 grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
-        {KPIS.map((k) => (
-          <KpiCard
+        {KPIS.map((k, i) => (
+          <MagicStatCard
             key={k.en}
             ar={k.ar}
             en={k.en}
-            value={k.value}
-            delta={k.delta}
-            trend={k.trend}
-            spark={k.spark}
+            value={parseFloat(k.value.split('/')[0])}
+            unit={k.en === 'p99 latency' ? 'ms' : k.value.includes('%') ? '%' : ''}
             icon={k.icon}
-            accent
+            delay={i * 0.05}
           />
         ))}
       </div>
 
-      <div className="grid grid-cols-12 gap-3">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="grid grid-cols-12 gap-3"
+      >
         {/* Topology */}
         <section className="glass-card relative col-span-12 overflow-hidden p-5 lg:col-span-7">
           <PanelHeader ar="طوبولوجيا البنية التحتية" en="Infrastructure topology" icon={Network} />
@@ -943,7 +947,7 @@ export function EngineeringOpsPage() {
             })}
           </ul>
         </section>
-      </div>
+      </motion.div>
     </PageShell>
   )
 }

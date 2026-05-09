@@ -1,4 +1,4 @@
-import { useMemo, type ComponentType } from 'react'
+import { type ComponentType } from 'react'
 import {
   CircuitBoard,
   Bot,
@@ -16,6 +16,9 @@ import {
   Download,
   Upload,
 } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { MagicStatCard } from '@/components/magic/MagicStatCard'
+import { NeuralNetwork3D } from '@/components/magic/NeuralNetwork3D'
 import { PageShell } from '@/pages-detail/_PageShell'
 import { Sparkline } from '@/home/parts/Sparkline'
 import { PanelHeader } from '@/home/parts/PanelHeader'
@@ -94,66 +97,6 @@ const KPIS: Kpi[] = [
     icon: Download,
   },
 ]
-
-/* --- ROS2 nodes --- */
-type NodeCat = 'perception' | 'planning' | 'control' | 'bridge'
-interface RosNode {
-  id: string
-  cat: NodeCat
-  x: number
-  y: number
-}
-const ROS_NODES: RosNode[] = [
-  // Perception (left)
-  { id: '/camera', cat: 'perception', x: 80, y: 70 },
-  { id: '/lidar', cat: 'perception', x: 90, y: 160 },
-  { id: '/imu', cat: 'perception', x: 70, y: 240 },
-  { id: '/depth', cat: 'perception', x: 150, y: 110 },
-  { id: '/tf_static', cat: 'perception', x: 160, y: 220 },
-  // Planning (mid-upper)
-  { id: '/nav2', cat: 'planning', x: 320, y: 80 },
-  { id: '/costmap_local', cat: 'planning', x: 280, y: 170 },
-  { id: '/costmap_global', cat: 'planning', x: 360, y: 230 },
-  { id: '/planner', cat: 'planning', x: 420, y: 130 },
-  // Control (right)
-  { id: '/joint_state', cat: 'control', x: 560, y: 90 },
-  { id: '/twist_mux', cat: 'control', x: 600, y: 180 },
-  { id: '/odom', cat: 'control', x: 520, y: 250 },
-  { id: '/controller', cat: 'control', x: 660, y: 130 },
-  // Bridge (far right)
-  { id: '/rosbridge', cat: 'bridge', x: 760, y: 100 },
-  { id: '/gateway', cat: 'bridge', x: 770, y: 200 },
-  { id: '/diagnostics', cat: 'bridge', x: 700, y: 270 },
-]
-interface RosEdge {
-  from: string
-  to: string
-  topic: string
-}
-const ROS_EDGES: RosEdge[] = [
-  { from: '/camera', to: '/depth', topic: '/image' },
-  { from: '/lidar', to: '/costmap_local', topic: '/scan' },
-  { from: '/depth', to: '/costmap_local', topic: '/depth' },
-  { from: '/imu', to: '/odom', topic: '/imu' },
-  { from: '/tf_static', to: '/costmap_global', topic: '/tf' },
-  { from: '/costmap_local', to: '/nav2', topic: '/costmap' },
-  { from: '/costmap_global', to: '/nav2', topic: '/costmap' },
-  { from: '/nav2', to: '/planner', topic: '/goal' },
-  { from: '/planner', to: '/twist_mux', topic: '/cmd_vel' },
-  { from: '/joint_state', to: '/controller', topic: '/joints' },
-  { from: '/twist_mux', to: '/controller', topic: '/cmd_vel' },
-  { from: '/odom', to: '/nav2', topic: '/odom' },
-  { from: '/controller', to: '/rosbridge', topic: '/state' },
-  { from: '/odom', to: '/gateway', topic: '/odom' },
-  { from: '/joint_state', to: '/diagnostics', topic: '/diag' },
-]
-
-const NODE_CAT_META: Record<NodeCat, { ar: string; en: string; color: string }> = {
-  perception: { ar: 'الإدراك', en: 'Perception', color: '#4ea3ff' },
-  planning: { ar: 'التخطيط', en: 'Planning', color: '#22c55e' },
-  control: { ar: 'التحكم', en: 'Control', color: '#f5a524' },
-  bridge: { ar: 'الجسر', en: 'Bridge', color: '#a78bfa' },
-}
 
 /* --- DDS partitions --- */
 interface DdsPartition {
@@ -331,12 +274,6 @@ const HEARTBEATS: { id: string; data: number[]; tone: Tone }[] = EDGE_AGENTS.map
 /* ------------------------------------------------------------------ */
 
 export function RoboticsEdgePage() {
-  const nodeById = useMemo(() => {
-    const m = new Map<string, RosNode>()
-    for (const n of ROS_NODES) m.set(n.id, n)
-    return m
-  }, [])
-
   return (
     <PageShell
       active="robotics-edge"
@@ -347,117 +284,35 @@ export function RoboticsEdgePage() {
     >
       {/* === KPI strip === */}
       <section className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
-        {KPIS.map((k) => {
-          const Icon = k.icon
-          const deltaTone =
-            k.trend === 'up' ? 'text-[--color-good]' : k.trend === 'down' ? 'text-[--color-warn]' : 'text-[--color-muted]'
-          return (
-            <div
-              key={k.en}
-              className="glass-card glass-card-hover relative overflow-hidden p-3 transition-shadow hover:shadow-[0_0_24px_rgba(78,163,255,0.18)]"
-            >
-              <div className="flex items-start justify-between gap-2">
-                <div>
-                  <div className="font-en text-[9.5px] font-bold uppercase tracking-[0.18em] text-[--color-faint]">
-                    {k.en}
-                  </div>
-                  <div className="text-[11px] font-bold text-[--color-ink-2]">{k.ar}</div>
-                </div>
-                <div className="grid h-7 w-7 shrink-0 place-items-center rounded-lg border border-[rgba(78,163,255,0.22)] bg-gradient-to-br from-[#0a3a7e]/40 to-[#003d82]/15 text-[--color-admiral-glow]">
-                  <Icon size={12} />
-                </div>
-              </div>
-              <div className="mt-2 flex items-baseline gap-2">
-                <div className="font-en text-[24px] font-black tabular-nums tracking-tight text-[--color-ink]">
-                  {k.value}
-                </div>
-                <div className={cn('font-en text-[10.5px] font-bold tabular-nums', deltaTone)}>{k.delta}</div>
-              </div>
-              <div className="-mx-1 mt-1">
-                <Sparkline data={k.spark} trend={k.trend} height={28} />
-              </div>
-            </div>
-          )
-        })}
+        {KPIS.map((k, i) => (
+          <MagicStatCard
+            key={k.en}
+            ar={k.ar}
+            en={k.en}
+            value={parseFloat(k.value.replace(/[^0-9.]/g, ''))}
+            unit={k.value.includes('ms') ? 'ms' : ''}
+            icon={k.icon}
+            delay={i * 0.05}
+          />
+        ))}
       </section>
 
       {/* === Row: ROS2 graph + DDS partitions === */}
-      <section className="mt-4 grid grid-cols-12 gap-3">
+      <motion.section 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="mt-4 grid grid-cols-12 gap-3"
+      >
         {/* ROS2 node graph */}
         <div className="glass-card col-span-12 overflow-hidden p-4 lg:col-span-7">
-          <PanelHeader ar="رسم عقد ROS2" en="ROS2 Node Graph" icon={GitBranch} />
-          <div className="bg-grid relative overflow-hidden rounded-2xl border border-[--color-line] bg-black/30 p-3">
-            <svg viewBox="0 0 840 320" className="block h-[320px] w-full" preserveAspectRatio="xMidYMid meet">
-              <defs>
-                <marker id="re-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-                  <path d="M0,0 L10,5 L0,10 z" fill="rgba(78,163,255,0.6)" />
-                </marker>
-              </defs>
-              {ROS_EDGES.map((e, i) => {
-                const a = nodeById.get(e.from)
-                const b = nodeById.get(e.to)
-                if (!a || !b) return null
-                const mx = (a.x + b.x) / 2
-                const my = (a.y + b.y) / 2 - 12
-                return (
-                  <g key={i}>
-                    <path
-                      d={`M ${a.x} ${a.y} Q ${mx} ${my} ${b.x} ${b.y}`}
-                      fill="none"
-                      stroke="rgba(78,163,255,0.32)"
-                      strokeWidth="1.1"
-                      markerEnd="url(#re-arrow)"
-                    />
-                    <text
-                      x={mx}
-                      y={my - 2}
-                      textAnchor="middle"
-                      className="font-en"
-                      fontSize="8.5"
-                      fill="rgba(167,180,210,0.65)"
-                    >
-                      {e.topic}
-                    </text>
-                  </g>
-                )
-              })}
-              {ROS_NODES.map((n) => {
-                const meta = NODE_CAT_META[n.cat]
-                return (
-                  <g key={n.id} className="ros-node">
-                    <circle cx={n.x} cy={n.y} r="22" fill={`${meta.color}14`} stroke={`${meta.color}55`} strokeWidth="1" />
-                    <circle cx={n.x} cy={n.y} r="6" fill={meta.color}>
-                      <animate attributeName="opacity" values="1;0.4;1" dur="2.6s" repeatCount="indefinite" />
-                    </circle>
-                    <text
-                      x={n.x}
-                      y={n.y + 36}
-                      textAnchor="middle"
-                      className="font-en"
-                      fontSize="9.5"
-                      fontWeight="700"
-                      fill="#e5edff"
-                    >
-                      {n.id}
-                    </text>
-                  </g>
-                )
-              })}
-            </svg>
-            {/* legend */}
+          <PanelHeader ar="رسم عقد ROS2 ثلاثي الأبعاد" en="3D ROS2 Node Graph" icon={GitBranch} />
+          <div className="bg-grid relative h-[320px] overflow-hidden rounded-2xl border border-[--color-line] bg-black/30">
+            <NeuralNetwork3D />
             <div className="absolute bottom-3 start-3 flex flex-wrap gap-2 rounded-xl border border-[--color-line] bg-black/55 px-3 py-2 backdrop-blur-md">
-              {(Object.keys(NODE_CAT_META) as NodeCat[]).map((c) => {
-                const m = NODE_CAT_META[c]
-                return (
-                  <div key={c} className="flex items-center gap-1.5">
-                    <span className="h-1.5 w-1.5 rounded-full" style={{ background: m.color }} />
-                    <span className="text-[10.5px] font-bold text-[--color-ink-2]">{m.ar}</span>
-                    <span className="font-en text-[9px] font-semibold uppercase tracking-[0.14em] text-[--color-faint]">
-                      {m.en}
-                    </span>
-                  </div>
-                )
-              })}
+              <span className="font-en text-[9px] font-bold uppercase tracking-widest text-[--color-admiral-glow]">
+                Neural Topology Mode · Real-time Sync
+              </span>
             </div>
           </div>
         </div>
@@ -513,10 +368,15 @@ export function RoboticsEdgePage() {
             </ul>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* === MQTT topics === */}
-      <section className="glass-card mt-4 overflow-hidden">
+      <motion.section 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4 }}
+        className="glass-card mt-4 overflow-hidden"
+      >
         <div className="p-4 pb-3">
           <PanelHeader ar="جدول مواضيع MQTT" en="MQTT Topic Stream" icon={Radio} />
         </div>
@@ -585,10 +445,15 @@ export function RoboticsEdgePage() {
             </tbody>
           </table>
         </div>
-      </section>
+      </motion.section>
 
       {/* === Row: Edge agents + Geofences === */}
-      <section className="mt-4 grid grid-cols-12 gap-3">
+      <motion.section 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+        className="mt-4 grid grid-cols-12 gap-3"
+      >
         <div className="glass-card col-span-12 overflow-hidden p-4 lg:col-span-7">
           <PanelHeader ar="عملاء الحافة لكل روبوت" en="Edge Agents per Robot" icon={Bot} />
           <div className="overflow-x-auto">
@@ -732,10 +597,15 @@ export function RoboticsEdgePage() {
             })}
           </ul>
         </div>
-      </section>
+      </motion.section>
 
-      {/* === OTA === */}
-      <section className="glass-card mt-4 overflow-hidden">
+        {/* === OTA === */}
+      <motion.section 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6 }}
+        className="glass-card mt-4 overflow-hidden"
+      >
         <div className="flex flex-wrap items-start justify-between gap-3 p-4">
           <div>
             <PanelHeader ar="حالة تحديثات OTA" en="OTA Deployment Status" icon={Download} />
@@ -870,10 +740,15 @@ export function RoboticsEdgePage() {
             </tbody>
           </table>
         </div>
-      </section>
+      </motion.section>
 
-      {/* === Row: Latency histogram + Heartbeat strips === */}
-      <section className="mt-4 grid grid-cols-12 gap-3">
+        {/* === Row: Latency histogram + Heartbeat strips === */}
+        <motion.section 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.7 }}
+        className="mt-4 grid grid-cols-12 gap-3"
+        >
         {/* Latency histogram */}
         <div className="glass-card col-span-12 p-4 lg:col-span-6">
           <PanelHeader ar="مراقبة زمن استجابة الأوامر" en="Command Latency Monitor" icon={Clock} />
@@ -929,7 +804,7 @@ export function RoboticsEdgePage() {
             ))}
           </ul>
         </div>
-      </section>
+      </motion.section>
 
       {/* spacer */}
       <div className="mt-4 flex items-center justify-center gap-2 text-[10.5px] font-bold text-[--color-faint]">

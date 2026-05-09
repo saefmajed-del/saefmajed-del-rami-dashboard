@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from 'react'
 
 export const ROUTES = [
   'home',
+  'landing',
   'fleet',
   'robotics-edge',
   'projects',
@@ -16,6 +17,7 @@ export const ROUTES = [
   'reports',
   'team',
   'settings',
+  'showcase',
 ] as const
 
 export type RouteId = (typeof ROUTES)[number]
@@ -30,9 +32,9 @@ const ROUTE_SET = new Set<string>(ROUTES)
 
 export function parseHash(hash: string = window.location.hash): Route {
   const raw = hash.replace(/^#\/?/, '')
-  if (!raw) return { id: 'home' }
+  if (!raw) return { id: 'landing' }
   const [head, param] = raw.split('/')
-  return ROUTE_SET.has(head) ? { id: head as RouteId, param } : { id: 'home' }
+  return ROUTE_SET.has(head) ? { id: head as RouteId, param } : { id: 'landing' }
 }
 
 export function routeHref(id: RouteId, param?: string) {

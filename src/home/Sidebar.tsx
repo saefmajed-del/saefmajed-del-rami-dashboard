@@ -16,6 +16,7 @@ const GROUPS: { ar: string; en: string; ids: RouteId[] }[] = [
   { ar: 'الذكاء والمحتوى', en: 'Intelligence & Content', ids: ['media', 'language', 'brand', 'streaming'] },
   { ar: 'الهندسة والبنية', en: 'Engineering & Infrastructure', ids: ['engineering', 'twin', 'security'] },
   { ar: 'الأكاديمية والإدارة', en: 'Academy & Admin', ids: ['learning', 'reports', 'team', 'settings'] },
+  { ar: 'مختبر جيمناي', en: 'Gemini Lab', ids: ['showcase'] },
 ]
 
 export function Sidebar({ active, drawerOpen = false, onCloseDrawer }: SidebarProps) {

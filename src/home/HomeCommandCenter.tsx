@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 import { Sidebar } from './Sidebar'
 import { TopBar } from './TopBar'
 import { KpiStrip } from './KpiStrip'
@@ -89,12 +90,22 @@ export function HomeCommandCenter() {
           </section>
 
           {/* Top KPI strip */}
-          <section className="mb-5">
+          <motion.section 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="mb-5"
+          >
             <KpiStrip />
-          </section>
+          </motion.section>
 
           {/* Original 8 platform snapshots */}
-          <section className="mb-5 grid grid-cols-12 gap-3">
+          <motion.section 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="mb-5 grid grid-cols-12 gap-3"
+          >
             <FleetSnapshot />
             <MediaSnapshot />
             <AILanguageSnapshot />
@@ -103,17 +114,27 @@ export function HomeCommandCenter() {
             <LearningSnapshot />
             <ReportsSnapshot />
             <SettingsSnapshot />
-          </section>
+          </motion.section>
 
           {/* New: 6-tile system operations strip */}
-          <section className="mb-5">
+          <motion.section 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="mb-5"
+          >
             <SystemSnapshots />
-          </section>
+          </motion.section>
 
           {/* Alerts band */}
-          <section className="mb-2">
+          <motion.section 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="mb-2"
+          >
             <AlertsBar />
-          </section>
+          </motion.section>
 
           {/* Branded footer */}
           <footer className="mt-8 overflow-hidden rounded-2xl border border-[rgba(78,163,255,0.14)] bg-gradient-to-b from-[#0a1330]/60 to-[#050813]/80">

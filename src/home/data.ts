@@ -17,6 +17,7 @@ import {
   Video,
   ShieldAlert,
   UsersRound,
+  Sparkles,
 } from 'lucide-react'
 
 export interface NavItem {
@@ -43,6 +44,7 @@ export const NAV: NavItem[] = [
   { id: 'reports', ar: 'التقارير', en: 'Reports', icon: FileBarChart2 },
   { id: 'team', ar: 'فريق المنصة', en: 'Platform Team', icon: UsersRound },
   { id: 'settings', ar: 'الإعدادات', en: 'Settings', icon: Settings },
+  { id: 'showcase', ar: 'معرض السحر', en: 'Magic Showcase', icon: Sparkles },
 ]
 
 export interface Kpi {

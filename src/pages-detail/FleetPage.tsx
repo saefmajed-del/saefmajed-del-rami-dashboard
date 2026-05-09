@@ -23,8 +23,10 @@ import {
   Clock,
   Gauge,
 } from 'lucide-react'
-import { KpiCard } from '@/components/KpiCard'
+import { motion } from 'framer-motion'
+import { MagicStatCard } from '@/components/magic/MagicStatCard'
 import { PageShell } from '@/pages-detail/_PageShell'
+import { RobotHologram } from '@/components/magic/RobotHologram'
 import { SaudiMap } from '@/home/parts/SaudiMap'
 import { ROBOT_PINS, ALERTS, type RobotPin, type Alert } from '@/home/data'
 import { cn } from '@/lib/utils'
@@ -161,21 +163,26 @@ export function FleetPage() {
     >
       {/* === KPI strip === */}
       <section className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
-        {kpis.map((k) => (
-          <KpiCard
+        {kpis.map((k, i) => (
+          <MagicStatCard
             key={k.en}
             ar={k.ar}
             en={k.en}
-            value={k.value}
-            spark={k.spark}
-            trend={k.trend}
+            value={parseFloat(k.value.replace(/[^0-9.]/g, ''))}
+            unit={k.value.includes('%') ? '%' : ''}
             icon={k.icon}
+            delay={i * 0.05}
           />
         ))}
       </section>
 
       {/* === Map + side panel === */}
-      <section className="mt-4 grid grid-cols-12 gap-3">
+      <motion.section 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="mt-4 grid grid-cols-12 gap-3"
+      >
         {/* Big map */}
         <div className="glass-card relative col-span-12 overflow-hidden p-4 lg:col-span-8">
           <div className="mb-3 flex items-center justify-between">
@@ -241,6 +248,14 @@ export function FleetPage() {
               </div>
             </div>
             <StatusPill status={selected.status} />
+          </div>
+
+          <div className="relative h-40 w-full overflow-hidden bg-black/20">
+            <div className="absolute inset-0 bg-grid opacity-20" />
+            <RobotHologram />
+            <div className="absolute bottom-2 start-2 font-en text-[8px] font-bold uppercase tracking-widest text-[--color-admiral-glow] opacity-60">
+              Live Neural Sync · Holographic Preview
+            </div>
           </div>
 
           <div className="hairline mx-4" />
@@ -343,10 +358,15 @@ export function FleetPage() {
             <ActionBtn icon={Eye} label="بثّ مباشر" />
           </div>
         </aside>
-      </section>
+      </motion.section>
 
       {/* === Robot list table === */}
-      <section className="glass-card mt-4 overflow-hidden">
+      <motion.section 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4 }}
+        className="glass-card mt-4 overflow-hidden"
+      >
         <div className="flex flex-wrap items-center justify-between gap-3 p-4 pb-3">
           <div>
             <div className="font-en text-[10.5px] font-bold uppercase tracking-[0.22em] text-[--color-admiral-glow]">
@@ -463,10 +483,15 @@ export function FleetPage() {
             </tbody>
           </table>
         </div>
-      </section>
+      </motion.section>
 
       {/* === Alerts feed === */}
-      <section className="glass-card mt-4 p-4">
+      <motion.section 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+        className="glass-card mt-4 p-4"
+      >
         <div className="mb-3 flex items-center justify-between">
           <div>
             <div className="font-en text-[10.5px] font-bold uppercase tracking-[0.22em] text-[--color-admiral-glow]">
@@ -485,7 +510,7 @@ export function FleetPage() {
             <AlertRow key={a.id} a={a} />
           ))}
         </ul>
-      </section>
+      </motion.section>
     </PageShell>
   )
 }

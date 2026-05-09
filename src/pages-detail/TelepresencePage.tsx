@@ -20,7 +20,8 @@ import {
   Gauge,
   PackageX,
 } from 'lucide-react'
-import { KpiCard } from '@/components/KpiCard'
+import { motion } from 'framer-motion'
+import { MagicStatCard } from '@/components/magic/MagicStatCard'
 import { PageShell } from './_PageShell'
 import { ROBOT_PINS } from '@/home/data'
 import { Waveform } from '@/home/parts/Waveform'
@@ -392,22 +393,26 @@ export function TelepresencePage() {
     >
       {/* KPI strip */}
       <div className="mb-3 grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-5">
-        {KPIS.map((k) => (
-          <KpiCard
+        {KPIS.map((k, i) => (
+          <MagicStatCard
             key={k.en}
             ar={k.ar}
             en={k.en}
-            value={k.value + (k.unit ? ` ${k.unit}` : '')}
-            delta={k.hint}
-            trend={k.tone === 'good' ? 'up' : k.tone === 'live' ? 'flat' : 'down'}
+            value={parseFloat(k.value)}
+            unit={k.unit ?? ''}
             icon={k.icon}
-            accent
+            delay={i * 0.05}
           />
         ))}
       </div>
 
       {/* Main grid */}
-      <div className="grid grid-cols-12 gap-3">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="grid grid-cols-12 gap-3"
+      >
         {/* Main stage 2x2 */}
         <section className="col-span-12 lg:col-span-8">
           <div className="glass-card p-3">
@@ -627,7 +632,7 @@ export function TelepresencePage() {
             </ul>
           </div>
         </section>
-      </div>
+      </motion.div>
     </PageShell>
   )
 }

@@ -1,6 +1,5 @@
 import { Suspense, lazy } from 'react'
 import { useRoute } from '@/lib/router'
-import { HomeCommandCenter } from '@/home/HomeCommandCenter'
 import { FleetPage } from '@/pages-detail/FleetPage'
 import { ProjectsPage } from '@/pages-detail/ProjectsPage'
 import { MediaPage } from '@/pages-detail/MediaPage'
@@ -14,10 +13,14 @@ import { RoboticsEdgePage } from '@/pages-detail/RoboticsEdgePage'
 import { TelepresencePage } from '@/pages-detail/TelepresencePage'
 import { SecurityOpsPage } from '@/pages-detail/SecurityOpsPage'
 import { PlatformTeamPage } from '@/pages-detail/PlatformTeamPage'
+import { LandingPage } from '@/pages-public/LandingPage'
 
 // Heavy: Three.js + R3F + drei. Code-split into its own chunk.
 const DigitalTwinPage = lazy(() =>
   import('@/pages-detail/DigitalTwinPage').then((m) => ({ default: m.DigitalTwinPage })),
+)
+const ShowcasePage = lazy(() =>
+  import('@/pages-detail/ShowcasePage').then((m) => ({ default: m.ShowcasePage })),
 )
 
 function TwinFallback() {
@@ -82,7 +85,15 @@ export function AppRouter() {
       return <PlatformTeamPage />
     case 'settings':
       return <SettingsPage />
+    case 'showcase':
+      return (
+        <Suspense fallback={<TwinFallback />}>
+          <ShowcasePage />
+        </Suspense>
+      )
+    case 'landing':
+      return <LandingPage />
     default:
-      return <HomeCommandCenter />
+      return <LandingPage />
   }
 }
