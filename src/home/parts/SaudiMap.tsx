@@ -2,6 +2,7 @@
 // viewBox: 100 (lon) x 110 (lat), with 0..100 mapping ~32E..56E, 0..110 ~33N..15N.
 
 import type { RobotPin } from '../data'
+import { pinKind } from '../data'
 
 interface Props {
   pins?: RobotPin[]
@@ -158,14 +159,44 @@ export function SaudiMap({ pins = [], showDialects = false, showCities = false, 
           </g>
         ))}
 
-      {/* robot pins */}
+      {/* robot + drone pins */}
       {pins.map((p) => {
         const color =
           p.status === 'online' ? '#22c55e' : p.status === 'warn' ? '#f5a524' : '#7a86a8'
+        const kind = pinKind(p)
+        if (kind === 'drone') {
+          return (
+            <g key={p.id} transform={`translate(${p.x} ${p.y})`}>
+              {p.status === 'online' && (
+                <circle r="4.2" fill="url(#pin-glow)">
+                  <animate attributeName="r" values="3.4;5.2;3.4" dur="2.4s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0.6;0.15;0.6" dur="2.4s" repeatCount="indefinite" />
+                </circle>
+              )}
+              {/* quadcopter top-down: 4 rotor circles + cross */}
+              <g stroke="rgba(255,255,255,0.65)" strokeWidth="0.28" fill={color}>
+                <line x1="-1.8" y1="-1.8" x2="1.8" y2="1.8" stroke={color} strokeWidth="0.4" />
+                <line x1="-1.8" y1="1.8" x2="1.8" y2="-1.8" stroke={color} strokeWidth="0.4" />
+                <circle cx="-1.8" cy="-1.8" r="0.7" />
+                <circle cx="1.8" cy="-1.8" r="0.7" />
+                <circle cx="-1.8" cy="1.8" r="0.7" />
+                <circle cx="1.8" cy="1.8" r="0.7" />
+                <circle r="0.55" fill="#0b1024" stroke={color} strokeWidth="0.35" />
+              </g>
+            </g>
+          )
+        }
+        const isQuad = kind === 'quadruped'
         return (
           <g key={p.id} transform={`translate(${p.x} ${p.y})`}>
             {p.status === 'online' && <circle r="3.6" fill="url(#pin-glow)" />}
-            <circle r="1.2" fill={color} stroke="rgba(255,255,255,0.6)" strokeWidth="0.25" />
+            {isQuad ? (
+              // small box for quadruped
+              <rect x="-1.3" y="-0.9" width="2.6" height="1.8" rx="0.4" fill={color} stroke="rgba(255,255,255,0.6)" strokeWidth="0.25" />
+            ) : (
+              // circle for humanoid
+              <circle r="1.2" fill={color} stroke="rgba(255,255,255,0.6)" strokeWidth="0.25" />
+            )}
             {p.status === 'online' && (
               <circle r="0.9" fill={color}>
                 <animate attributeName="r" values="0.9;2.6;0.9" dur="2.2s" repeatCount="indefinite" />

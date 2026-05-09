@@ -58,22 +58,22 @@ export interface Kpi {
 
 export const KPIS: Kpi[] = [
   {
-    ar: 'إجمالي الروبوتات',
-    en: 'Total Robots',
-    value: '10',
-    delta: '+2',
+    ar: 'إجمالي الأصول',
+    en: 'Total Assets',
+    value: '13',
+    delta: '+3',
     trend: 'up',
-    spark: [3, 3, 4, 5, 5, 6, 6, 7, 8, 8, 9, 10],
-    hint: 'across 4 deployments',
+    spark: [3, 4, 4, 5, 5, 6, 7, 8, 9, 10, 12, 13],
+    hint: '7 humanoid · 3 quadruped · 3 drones',
   },
   {
     ar: 'متصل الآن',
     en: 'Online Now',
-    value: '8',
-    delta: '80%',
+    value: '11',
+    delta: '85%',
     trend: 'up',
-    spark: [2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8],
-    hint: '8 / 10 reachable',
+    spark: [2, 3, 4, 5, 5, 6, 7, 8, 9, 10, 10, 11],
+    hint: '11 / 13 reachable',
   },
   {
     ar: 'الوصول الكلي',
@@ -113,6 +113,8 @@ export const KPIS: Kpi[] = [
   },
 ]
 
+export type RobotKind = 'humanoid' | 'quadruped' | 'drone'
+
 export interface RobotPin {
   id: string
   city: string
@@ -121,6 +123,15 @@ export interface RobotPin {
   y: number
   status: 'online' | 'warn' | 'offline'
   battery: number
+  /** asset class — inferred from id prefix when missing (G1*=humanoid, GO2*=quadruped, DRN*=drone) */
+  kind?: RobotKind
+}
+
+export function pinKind(p: { id: string; kind?: RobotKind }): RobotKind {
+  if (p.kind) return p.kind
+  if (p.id.startsWith('GO2')) return 'quadruped'
+  if (p.id.startsWith('DRN')) return 'drone'
+  return 'humanoid'
 }
 
 export const ROBOT_PINS: RobotPin[] = [
@@ -134,6 +145,9 @@ export const ROBOT_PINS: RobotPin[] = [
   { id: 'G1-TBK-01', city: 'تبوك', x: 22, y: 22, status: 'warn', battery: 31 },
   { id: 'G1-QSM-01', city: 'القصيم', x: 50, y: 38, status: 'online', battery: 73 },
   { id: 'G1-JIZ-01', city: 'جيزان', x: 34, y: 90, status: 'online', battery: 62 },
+  { id: 'DRN-RUH-01', city: 'الرياض', x: 60, y: 46, status: 'online', battery: 84, kind: 'drone' },
+  { id: 'DRN-NEOM-01', city: 'نيوم', x: 18, y: 18, status: 'online', battery: 92, kind: 'drone' },
+  { id: 'DRN-DMM-01', city: 'الدمام', x: 76, y: 36, status: 'warn', battery: 27, kind: 'drone' },
 ]
 
 export interface MediaItem {
