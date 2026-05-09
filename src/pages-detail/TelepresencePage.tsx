@@ -591,7 +591,7 @@ export function TelepresencePage() {
                 <Chip tone="muted">2 facilities</Chip>
               </div>
             </div>
-            <div className="grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-9">
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-9">
               {STREAMS.map((s) => (
                 <ViewportTile
                   key={s.id}
@@ -894,14 +894,14 @@ function ViewportTile({
               onPause?.()
             }}
             className="grid h-6 w-6 place-items-center rounded-md border border-white/15 bg-black/55 text-white backdrop-blur-md hover:bg-black/75"
-            aria-label="pause"
+            aria-label="إيقاف / Pause"
           >
             {paused ? <Radio size={11} /> : <Pause size={11} />}
           </button>
           <button
             onClick={(e) => e.stopPropagation()}
             className="grid h-6 w-6 place-items-center rounded-md border border-white/15 bg-black/55 text-white backdrop-blur-md hover:bg-black/75"
-            aria-label="fullscreen"
+            aria-label="تكبير / Fullscreen"
           >
             <Maximize2 size={11} />
           </button>

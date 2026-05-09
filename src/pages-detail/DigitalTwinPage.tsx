@@ -673,14 +673,15 @@ export function DigitalTwinPage() {
       description="رؤية مكانية ثلاثيّة الأبعاد لجميع المرافق والروبوتات والمسارات — تحكّم زمني، طبقات قابلة للتبديل، وإعادة تشغيل المشاهد."
       actions={
         <button
-          onClick={() => {
-            setResetKey((k) => k + 1)
-            setFollow(false)
-          }}
+          onClick={() => setFollowSelected(false)}
           className="inline-flex items-center gap-1.5 rounded-xl border border-[rgba(78,163,255,0.28)] bg-[--color-admiral]/10 px-3 py-2 text-[12px] font-bold text-[--color-ink] transition-shadow hover:shadow-[0_0_18px_rgba(78,163,255,0.22)]"
+          aria-label="إعادة الكاميرا / Reset Camera"
         >
           <RotateCcw size={12} />
-          إعادة الكاميرا
+          <div className="flex flex-col items-start leading-tight">
+            <span>إعادة الكاميرا</span>
+            <span className="font-en text-[9px] font-semibold uppercase tracking-[0.14em] opacity-70">Reset Camera</span>
+          </div>
         </button>
       }
     >
@@ -712,22 +713,28 @@ export function DigitalTwinPage() {
           <button
             onClick={() => setAutoRotate((v) => !v)}
             className={cn(
-              'inline-flex items-center gap-1.5 rounded-xl border px-2.5 py-1.5 font-en text-[10.5px] font-bold uppercase tracking-[0.14em] transition-shadow',
+              'inline-flex items-center gap-1.5 rounded-xl border px-2.5 py-1.5 text-[12px] font-bold transition-shadow',
               autoRotate
                 ? 'border-[rgba(78,163,255,0.45)] bg-[--color-admiral]/15 text-[--color-ink]'
                 : 'border-[--color-line] bg-black/30 text-[--color-ink-2]',
             )}
-            title="Auto rotate"
+            aria-label="دوران تلقائي / Auto Rotate"
           >
             <RotateCcw size={11} />
-            دوران تلقائي
+            <div className="flex flex-col items-start leading-tight">
+              <span>دوران تلقائي</span>
+              <span className="font-en text-[9px] font-semibold uppercase tracking-[0.14em] opacity-70">Auto Rotate</span>
+            </div>
           </button>
           <button
-            className="inline-flex items-center gap-1.5 rounded-xl border border-[--color-line] bg-black/30 px-2.5 py-1.5 font-en text-[10.5px] font-bold uppercase tracking-[0.14em] text-[--color-ink-2] hover:text-[--color-ink]"
-            title="Maximize"
+            className="inline-flex items-center gap-1.5 rounded-xl border border-[--color-line] bg-black/30 px-2.5 py-1.5 text-[12px] font-bold text-[--color-ink-2] hover:text-[--color-ink]"
+            aria-label="تكبير / Maximize"
           >
             <Maximize2 size={11} />
-            تكبير
+            <div className="flex flex-col items-start leading-tight">
+              <span>تكبير</span>
+              <span className="font-en text-[9px] font-semibold uppercase tracking-[0.14em] opacity-70">Maximize</span>
+            </div>
           </button>
         </div>
       </section>
