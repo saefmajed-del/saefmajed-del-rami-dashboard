@@ -24,9 +24,7 @@ import {
   RefreshCw,
 } from 'lucide-react'
 import { PageShell } from './_PageShell'
-import { Sparkline } from '@/home/parts/Sparkline'
-import { PanelHeader } from '@/home/parts/PanelHeader'
-import { cn } from '@/lib/utils'
+import { KpiCard } from '@/components/KpiCard'
 
 // ---------------- Helpers ----------------
 
@@ -386,42 +384,19 @@ export function EngineeringOpsPage() {
     >
       {/* KPI strip */}
       <div className="mb-3 grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
-        {KPIS.map((k) => {
-          const TIcon = k.trend === 'down' ? ArrowDownRight : ArrowUpRight
-          const Icon = k.icon
-          const isGoodDelta = k.trend === 'up' || (k.en === 'p99 latency' && k.trend === 'down')
-          const trendCls = isGoodDelta
-            ? 'text-[--color-good] bg-[--color-good]/10 border-[--color-good]/20'
-            : k.trend === 'down'
-              ? 'text-[--color-warn] bg-[--color-warn]/10 border-[--color-warn]/20'
-              : 'text-[--color-muted] bg-white/[0.04] border-[--color-line]'
-          return (
-            <div key={k.en} className="glass-card glass-card-hover relative overflow-hidden p-4">
-              <div className="pointer-events-none absolute -end-12 -top-12 h-32 w-32 rounded-full bg-[--color-admiral-glow]/10 blur-2xl" />
-              <div className="flex items-start justify-between gap-2">
-                <div className="min-w-0">
-                  <div className="flex items-center gap-1.5">
-                    <Icon size={12} className="text-[--color-admiral-glow]" />
-                    <div className="truncate text-[12px] font-bold text-[--color-ink-2]">{k.ar}</div>
-                  </div>
-                  <div className="truncate font-en text-[10px] font-semibold uppercase tracking-[0.18em] text-[--color-faint]">
-                    {k.en}
-                  </div>
-                </div>
-                <span className={cn('inline-flex items-center gap-0.5 rounded-md border px-1.5 py-0.5 font-en text-[10px] font-bold', trendCls)}>
-                  <TIcon size={10} />
-                  {k.delta}
-                </span>
-              </div>
-              <div className="mt-3 font-en text-[24px] font-extrabold leading-none tracking-tight tabular-nums text-[--color-ink]">
-                {k.value}
-              </div>
-              <div className="mt-2 -mx-1">
-                <Sparkline data={k.spark} trend={k.trend} height={30} />
-              </div>
-            </div>
-          )
-        })}
+        {KPIS.map((k) => (
+          <KpiCard
+            key={k.en}
+            ar={k.ar}
+            en={k.en}
+            value={k.value}
+            delta={k.delta}
+            trend={k.trend}
+            spark={k.spark}
+            icon={k.icon}
+            accent
+          />
+        ))}
       </div>
 
       <div className="grid grid-cols-12 gap-3">

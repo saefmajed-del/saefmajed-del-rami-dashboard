@@ -20,6 +20,7 @@ import {
   Gauge,
   PackageX,
 } from 'lucide-react'
+import { KpiCard } from '@/components/KpiCard'
 import { PageShell } from './_PageShell'
 import { ROBOT_PINS } from '@/home/data'
 import { Waveform } from '@/home/parts/Waveform'
@@ -391,57 +392,18 @@ export function TelepresencePage() {
     >
       {/* KPI strip */}
       <div className="mb-3 grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-5">
-        {KPIS.map((k) => {
-          const Icon = k.icon
-          const tone =
-            k.tone === 'live'
-              ? 'text-[--color-bad] bg-[--color-bad]/10 border-[--color-bad]/30'
-              : k.tone === 'good'
-                ? 'text-[--color-good] bg-[--color-good]/10 border-[--color-good]/20'
-                : k.tone === 'warn'
-                  ? 'text-[--color-warn] bg-[--color-warn]/10 border-[--color-warn]/20'
-                  : 'text-[--color-admiral-glow] bg-[--color-admiral]/10 border-[rgba(78,163,255,0.22)]'
-          return (
-            <div key={k.en} className="glass-card glass-card-hover relative overflow-hidden p-4">
-              <div className="pointer-events-none absolute -end-12 -top-12 h-32 w-32 rounded-full bg-[--color-admiral-glow]/10 blur-2xl" />
-              <div className="flex items-start justify-between gap-2">
-                <div className="min-w-0">
-                  <div className="flex items-center gap-1.5">
-                    <Icon size={12} className="text-[--color-admiral-glow]" />
-                    <div className="truncate text-[12px] font-bold text-[--color-ink-2]">{k.ar}</div>
-                  </div>
-                  <div className="truncate font-en text-[10px] font-semibold uppercase tracking-[0.18em] text-[--color-faint]">
-                    {k.en}
-                  </div>
-                </div>
-                <span
-                  className={cn(
-                    'inline-flex items-center gap-1 rounded-md border px-1.5 py-0.5 font-en text-[10px] font-bold uppercase tracking-[0.14em]',
-                    tone
-                  )}
-                >
-                  {k.tone === 'live' && (
-                    <span className="relative grid h-1.5 w-1.5 place-items-center">
-                      <span className="absolute inset-0 animate-ping rounded-full bg-[--color-bad]/70" />
-                      <span className="relative h-1.5 w-1.5 rounded-full bg-[--color-bad]" />
-                    </span>
-                  )}
-                  {k.hint}
-                </span>
-              </div>
-              <div className="mt-3 flex items-baseline gap-1.5">
-                <div className="font-en text-[26px] font-extrabold leading-none tabular-nums tracking-tight text-[--color-ink]">
-                  {k.value}
-                </div>
-                {k.unit && (
-                  <div className="font-en text-[12px] font-bold uppercase tracking-[0.14em] text-[--color-faint]">
-                    {k.unit}
-                  </div>
-                )}
-              </div>
-            </div>
-          )
-        })}
+        {KPIS.map((k) => (
+          <KpiCard
+            key={k.en}
+            ar={k.ar}
+            en={k.en}
+            value={k.value + (k.unit ? ` ${k.unit}` : '')}
+            delta={k.hint}
+            trend={k.tone === 'good' ? 'up' : k.tone === 'live' ? 'flat' : 'down'}
+            icon={k.icon}
+            accent
+          />
+        ))}
       </div>
 
       {/* Main grid */}

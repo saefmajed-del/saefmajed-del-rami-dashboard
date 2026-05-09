@@ -32,6 +32,7 @@ import {
 import * as THREE from 'three'
 import type { Group, Mesh } from 'three'
 import { PageShell } from '@/pages-detail/_PageShell'
+import { KpiCard } from '@/components/KpiCard'
 import { Sparkline } from '@/home/parts/Sparkline'
 import { cn } from '@/lib/utils'
 
@@ -935,28 +936,15 @@ export function DigitalTwinPage() {
         {kpis.map((k) => {
           const Icon = KPI_ICONS[k.key] ?? Hexagon
           return (
-            <div
+            <KpiCard
               key={k.key}
-              className="glass-card glass-card-hover relative overflow-hidden p-3 transition-shadow hover:shadow-[0_0_24px_rgba(78,163,255,0.18)]"
-            >
-              <div className="flex items-start justify-between gap-2">
-                <div>
-                  <div className="font-en text-[9.5px] font-bold uppercase tracking-[0.18em] text-[--color-faint]">
-                    {k.en}
-                  </div>
-                  <div className="text-[11px] font-bold text-[--color-ink-2]">{k.ar}</div>
-                </div>
-                <div className="grid h-7 w-7 shrink-0 place-items-center rounded-lg border border-[rgba(78,163,255,0.22)] bg-gradient-to-br from-[#0a3a7e]/40 to-[#003d82]/15 text-[--color-admiral-glow]">
-                  <Icon size={12} />
-                </div>
-              </div>
-              <div className="mt-2 font-en text-[24px] font-black tabular-nums text-[--color-ink]">
-                {k.value}
-              </div>
-              <div className="-mx-1 mt-1">
-                <Sparkline data={k.spark} trend={k.trend} height={28} />
-              </div>
-            </div>
+              ar={k.ar}
+              en={k.en}
+              value={k.value}
+              spark={k.spark}
+              trend={k.trend}
+              icon={Icon}
+            />
           )
         })}
       </section>
