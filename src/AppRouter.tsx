@@ -1,5 +1,6 @@
 import { Suspense, lazy } from 'react'
 import { useRoute } from '@/lib/router'
+import { HomeCommandCenter } from '@/home/HomeCommandCenter'
 import { FleetPage } from '@/pages-detail/FleetPage'
 import { ProjectsPage } from '@/pages-detail/ProjectsPage'
 import { MediaPage } from '@/pages-detail/MediaPage'
@@ -13,7 +14,6 @@ import { RoboticsEdgePage } from '@/pages-detail/RoboticsEdgePage'
 import { TelepresencePage } from '@/pages-detail/TelepresencePage'
 import { SecurityOpsPage } from '@/pages-detail/SecurityOpsPage'
 import { PlatformTeamPage } from '@/pages-detail/PlatformTeamPage'
-import { LandingPage } from '@/pages-public/LandingPage'
 
 // Heavy: Three.js + R3F + drei. Code-split into its own chunk.
 const DigitalTwinPage = lazy(() =>
@@ -21,6 +21,11 @@ const DigitalTwinPage = lazy(() =>
 )
 const ShowcasePage = lazy(() =>
   import('@/pages-detail/ShowcasePage').then((m) => ({ default: m.ShowcasePage })),
+)
+// LandingPage also uses R3F directly — keep it off the eager critical path so
+// authenticated routes don't pay the Three.js tax on first paint.
+const LandingPage = lazy(() =>
+  import('@/pages-public/LandingPage').then((m) => ({ default: m.LandingPage })),
 )
 
 function TwinFallback() {
@@ -53,6 +58,8 @@ function TwinFallback() {
 export function AppRouter() {
   const route = useRoute()
   switch (route.id) {
+    case 'home':
+      return <HomeCommandCenter />
     case 'fleet':
       return <FleetPage />
     case 'robotics-edge':
@@ -92,8 +99,16 @@ export function AppRouter() {
         </Suspense>
       )
     case 'landing':
-      return <LandingPage />
+      return (
+        <Suspense fallback={<TwinFallback />}>
+          <LandingPage />
+        </Suspense>
+      )
     default:
-      return <LandingPage />
+      return (
+        <Suspense fallback={<TwinFallback />}>
+          <LandingPage />
+        </Suspense>
+      )
   }
 }

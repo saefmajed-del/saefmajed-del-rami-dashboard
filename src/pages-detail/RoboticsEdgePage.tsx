@@ -1,4 +1,4 @@
-import { type ComponentType } from 'react'
+import { Suspense, lazy, type ComponentType } from 'react'
 import {
   CircuitBoard,
   Bot,
@@ -18,7 +18,24 @@ import {
 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { MagicStatCard } from '@/components/magic/MagicStatCard'
-import { NeuralNetwork3D } from '@/components/magic/NeuralNetwork3D'
+// Heavy: Three.js + R3F. Lazy-load so the 291 KB-gz `extends` chunk only fetches
+// when this panel actually renders, not at app boot.
+const NeuralNetwork3D = lazy(() =>
+  import('@/components/magic/NeuralNetwork3D').then((m) => ({ default: m.NeuralNetwork3D })),
+)
+
+function ThreeFallback({ label }: { label: string }) {
+  return (
+    <div className="grid h-full w-full place-items-center">
+      <div className="flex flex-col items-center gap-2">
+        <span className="block h-6 w-6 animate-radar rounded-full border border-t-2 border-[--color-line] border-t-[--color-admiral-glow]" />
+        <span className="font-en text-[9px] font-bold uppercase tracking-[0.22em] text-[--color-admiral-glow]">
+          {label}
+        </span>
+      </div>
+    </div>
+  )
+}
 import { PageShell } from '@/pages-detail/_PageShell'
 import { Sparkline } from '@/home/parts/Sparkline'
 import { PanelHeader } from '@/home/parts/PanelHeader'
@@ -308,7 +325,9 @@ export function RoboticsEdgePage() {
         <div className="glass-card col-span-12 overflow-hidden p-4 lg:col-span-7">
           <PanelHeader ar="رسم عقد ROS2 ثلاثي الأبعاد" en="3D ROS2 Node Graph" icon={GitBranch} />
           <div className="bg-grid relative h-[320px] overflow-hidden rounded-2xl border border-[--color-line] bg-black/30">
-            <NeuralNetwork3D />
+            <Suspense fallback={<ThreeFallback label="Booting Neural Topology" />}>
+              <NeuralNetwork3D />
+            </Suspense>
             <div className="absolute bottom-3 start-3 flex flex-wrap gap-2 rounded-xl border border-[--color-line] bg-black/55 px-3 py-2 backdrop-blur-md">
               <span className="font-en text-[9px] font-bold uppercase tracking-widest text-[--color-admiral-glow]">
                 Neural Topology Mode · Real-time Sync

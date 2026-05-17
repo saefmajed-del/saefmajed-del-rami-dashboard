@@ -1,4 +1,4 @@
-import { useMemo, useState, type ComponentType } from 'react'
+import { Suspense, lazy, useMemo, useState, type ComponentType } from 'react'
 import {
   Cpu,
   Battery,
@@ -26,7 +26,11 @@ import {
 import { motion } from 'framer-motion'
 import { MagicStatCard } from '@/components/magic/MagicStatCard'
 import { PageShell } from '@/pages-detail/_PageShell'
-import { RobotHologram } from '@/components/magic/RobotHologram'
+// Heavy: Three.js + R3F. Lazy-load so the 291 KB-gz `extends` chunk only fetches
+// when a robot card is opened, not at app boot.
+const RobotHologram = lazy(() =>
+  import('@/components/magic/RobotHologram').then((m) => ({ default: m.RobotHologram })),
+)
 import { SaudiMap } from '@/home/parts/SaudiMap'
 import { ROBOT_PINS, ALERTS, type RobotPin, type Alert } from '@/home/data'
 import { cn } from '@/lib/utils'
@@ -252,7 +256,15 @@ export function FleetPage() {
 
           <div className="relative h-40 w-full overflow-hidden bg-black/20">
             <div className="absolute inset-0 bg-grid opacity-20" />
-            <RobotHologram />
+            <Suspense
+              fallback={
+                <div className="grid h-full w-full place-items-center">
+                  <span className="block h-5 w-5 animate-radar rounded-full border border-t-2 border-[--color-line] border-t-[--color-admiral-glow]" />
+                </div>
+              }
+            >
+              <RobotHologram />
+            </Suspense>
             <div className="absolute bottom-2 start-2 font-en text-[8px] font-bold uppercase tracking-widest text-[--color-admiral-glow] opacity-60">
               Live Neural Sync · Holographic Preview
             </div>
