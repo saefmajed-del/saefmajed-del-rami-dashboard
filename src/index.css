@@ -62,10 +62,19 @@ html {
 body {
   font-family: var(--font-sans);
   font-size: 14px;
+  /* AR/Najdi typography needs more leading than EN — 1.7 prevents diacritic
+     clipping and matches the agency-grade Arabic body norm (RTL linter §1). */
+  line-height: 1.7;
   color: var(--color-ink);
   background: transparent;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/* English meta lines stay tighter — keeps the dense KPI/uppercase eyebrows
+   from looking airy. Opt-in via the existing .font-en utility. */
+.font-en {
+  line-height: 1.35;
 }
 
 ::selection {
@@ -214,6 +223,21 @@ body {
 }
 .animate-drift {
   animation: drift 4s ease-in-out infinite;
+}
+
+/* === Accessibility: honor reduced-motion globally ===
+   Stakeholder/enterprise grade requires this — Lighthouse a11y + WCAG 2.3.3.
+   Neutralizes the keyframe animations without removing them (so the layout
+   stays identical), and disables Tailwind's bundled ping/pulse/spin/bounce. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* light dotted grid for backgrounds */
