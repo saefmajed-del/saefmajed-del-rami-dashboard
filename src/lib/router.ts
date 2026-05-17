@@ -41,10 +41,28 @@ export function routeHref(id: RouteId, param?: string) {
   return param ? `#/${id}/${param}` : `#/${id}`
 }
 
+type DocWithVT = Document & {
+  startViewTransition?: (cb: () => void) => { finished: Promise<void> }
+}
+
 export function navigate(id: RouteId, param?: string) {
-  window.location.hash = routeHref(id, param)
-  // ensure scroll resets when changing screens
-  requestAnimationFrame(() => window.scrollTo({ top: 0 }))
+  const apply = () => {
+    window.location.hash = routeHref(id, param)
+    // ensure scroll resets when changing screens
+    requestAnimationFrame(() => window.scrollTo({ top: 0 }))
+  }
+
+  // Native View Transitions API — Chromium-only today, graceful no-op elsewhere.
+  // Respect prefers-reduced-motion to skip the cross-fade for a11y.
+  const doc = document as DocWithVT
+  const reduced =
+    typeof window !== 'undefined' &&
+    window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+  if (doc.startViewTransition && !reduced) {
+    doc.startViewTransition(apply)
+    return
+  }
+  apply()
 }
 
 export function useRoute(): Route {
