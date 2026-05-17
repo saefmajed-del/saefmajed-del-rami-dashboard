@@ -2,6 +2,7 @@ import { ArrowDownRight, ArrowUpRight, Minus } from 'lucide-react'
 import { KPIS } from './data'
 import { Sparkline } from './parts/Sparkline'
 import { useNavigate, type RouteId } from '@/lib/router'
+import { useCountUp } from '@/lib/useCountUp'
 
 const KPI_ROUTE: RouteId[] = ['fleet', 'fleet', 'media', 'projects', 'brand', 'media']
 
@@ -43,7 +44,7 @@ export function KpiStrip() {
 
             <div className="mt-3 flex items-end justify-between gap-2">
               <div className="font-en text-[28px] font-extrabold leading-none tracking-tight tabular-nums text-[--color-ink]">
-                {k.value}
+                <CountUpValue value={k.value} />
               </div>
             </div>
 
@@ -59,4 +60,10 @@ export function KpiStrip() {
       })}
     </div>
   )
+}
+
+function CountUpValue({ value }: { value: string }) {
+  // Animates the numeric portion of a KPI value (e.g. "98%", "1,247", "+3")
+  // from 0 → target. Non-numeric strings pass through unchanged.
+  return <>{useCountUp(value, 900)}</>
 }
