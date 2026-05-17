@@ -1,6 +1,7 @@
 import { useState, type ReactNode, type ComponentType } from 'react'
 import { Sidebar } from '@/home/Sidebar'
 import { TopBar } from '@/home/TopBar'
+import { useMagneticHover } from '@/lib/useMagneticHover'
 
 interface Props {
   active: string
@@ -46,12 +47,25 @@ export function PageShell({ active, ar, en, icon: Icon, description, actions, ch
             </div>
             <div className="flex items-center gap-2">
               <DemoPill />
-              {actions}
+              {actions ? <MagneticSlot>{actions}</MagneticSlot> : null}
             </div>
           </header>
           {children}
         </main>
       </div>
+    </div>
+  )
+}
+
+/**
+ * Wraps detail-page action buttons (e.g. "Export PDF" on BrandPage) with a
+ * subtle magnetic hover. Disabled when prefers-reduced-motion: reduce.
+ */
+function MagneticSlot({ children }: { children: ReactNode }) {
+  const ref = useMagneticHover<HTMLDivElement>(5)
+  return (
+    <div ref={ref} className="inline-flex items-center gap-2">
+      {children}
     </div>
   )
 }

@@ -211,6 +211,32 @@ body {
   }
 }
 
+/* Subtle "live data" diagonal shimmer on hover for KPI / data tiles.
+   Uses position:relative on the host element. */
+.shimmer-hover {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer-hover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 35%,
+    rgba(78, 163, 255, 0.12) 50%,
+    transparent 65%
+  );
+  transform: translateX(-100%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+.shimmer-hover:hover::after {
+  opacity: 1;
+  animation: shimmer 900ms ease-out;
+}
+
 .animate-pulse-ring {
   animation: pulse-ring 2.2s ease-out infinite;
 }

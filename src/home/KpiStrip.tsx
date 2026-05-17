@@ -23,7 +23,7 @@ export function KpiStrip() {
           <button
             key={k.en}
             onClick={() => navigate(KPI_ROUTE[i])}
-            className="glass-card glass-card-hover relative overflow-hidden p-4 text-start transition-all hover:-translate-y-0.5"
+            className="glass-card glass-card-hover shimmer-hover relative overflow-hidden p-4 text-start transition-all hover:-translate-y-0.5"
           >
             <div className="pointer-events-none absolute -end-12 -top-12 h-32 w-32 rounded-full bg-[--color-admiral-glow]/8 blur-2xl" />
 
